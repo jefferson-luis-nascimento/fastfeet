@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'prettier',
+    //"kentcdodds/possible-errors", "kentcdodds/best-practices",
   ],
   plugins: ['prettier'],
   globals: {

@@ -16,6 +16,12 @@ export default async (req, res, next) => {
   try {
     const decoded = await promisify(jwt.verify)(token, authConfig.secret);
 
+    const { admin } = decoded;
+
+    if (!admin) {
+      return res.status(401).json({ error: 'User is not a administrator.' });
+    }
+
     req.userId = decoded.id;
 
     return next();

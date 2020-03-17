@@ -82,6 +82,10 @@ class UserController {
 
     return res.json({ id, name, email });
   }
+
+  async delete(req, res) {
+    return res.json({ delete: true });
+  }
 }
 
 export default new UserController();

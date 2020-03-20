@@ -1,9 +1,13 @@
 import * as Yup from 'yup';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 import Delivery from '../models/Delivery';
 import File from '../models/File';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
+
+import Mail from '../../lib/Mail';
 
 class DeliveryController {
   async store(req, res) {
@@ -38,11 +42,24 @@ class DeliveryController {
       return res.status(404).json({ error: 'Signature not found.' });
     }
 
-    const { id } = await Delivery.create({
+    const { id, createdAt } = await Delivery.create({
       recipient_id,
       deliveryman_id,
       signature_id,
       product,
+    });
+
+    await Mail.sendMail({
+      to: `${deliveryman.name} <${deliveryman.email}>`,
+      subject: 'Nova entrega',
+      template: 'deliveryMail',
+      context: {
+        deliveryman: deliveryman.name,
+        recipient: recipient.name,
+        date: format(createdAt, "'dia' dd 'de' MMMM', às' H:mm'h'", {
+          locale: pt,
+        }),
+      },
     });
 
     return res.json({
@@ -51,6 +68,7 @@ class DeliveryController {
       deliveryman_id,
       signature_id,
       product,
+      created_at: createdAt,
     });
   }
 }

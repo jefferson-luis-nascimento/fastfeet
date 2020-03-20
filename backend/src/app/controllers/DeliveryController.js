@@ -32,7 +32,7 @@ class DeliveryController {
       return res.status(404).json({ error: 'Deliveryman not found.' });
     }
 
-    const signature = await Deliveryman.findByPk(signature_id);
+    const signature = await File.findByPk(signature_id);
 
     if (!signature) {
       return res.status(404).json({ error: 'Signature not found.' });

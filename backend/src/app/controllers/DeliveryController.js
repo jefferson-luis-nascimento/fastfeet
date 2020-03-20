@@ -1,13 +1,12 @@
 import * as Yup from 'yup';
-import { format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 
 import Delivery from '../models/Delivery';
 import File from '../models/File';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
 
-import Mail from '../../lib/Mail';
+import DeliveryMail from '../jobs/DeliveryMail';
+import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async store(req, res) {
@@ -49,18 +48,7 @@ class DeliveryController {
       product,
     });
 
-    await Mail.sendMail({
-      to: `${deliveryman.name} <${deliveryman.email}>`,
-      subject: 'Nova entrega',
-      template: 'deliveryMail',
-      context: {
-        deliveryman: deliveryman.name,
-        recipient: recipient.name,
-        date: format(createdAt, "'dia' dd 'de' MMMM', às' H:mm'h'", {
-          locale: pt,
-        }),
-      },
-    });
+    await Queue.add(DeliveryMail.key, { deliveryman, recipient, createdAt });
 
     return res.json({
       id,

@@ -3,14 +3,6 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
-  async index(req, res) {
-    return res.json({ index: true });
-  }
-
-  async show(req, res) {
-    return res.json({ show: true });
-  }
-
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -81,10 +73,6 @@ class UserController {
     const { id, name } = await user.update(req.body);
 
     return res.json({ id, name, email });
-  }
-
-  async delete(req, res) {
-    return res.json({ delete: true });
   }
 }
 

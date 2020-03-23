@@ -114,7 +114,12 @@ class DeliveryController {
       product,
     });
 
-    await Queue.add(DeliveryMail.key, { deliveryman, recipient, createdAt });
+    await Queue.add(DeliveryMail.key, {
+      deliveryman,
+      recipient,
+      product,
+      createdAt,
+    });
 
     return res.json({
       id,

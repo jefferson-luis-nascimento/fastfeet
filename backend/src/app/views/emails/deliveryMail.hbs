@@ -1,10 +1,14 @@
 <strong>Olá, {{ deliveryman }}</strong>
-<p>Hove uma nova entrega, confira os detalhes abaixo:</p>
+<p>Você tem uma nova entrega e já está disponível para retirada.</p>
+<p>Confira os detalhes abaixo:</p>
 <p>
   <strong>Destinatário: </strong> {{ recipient }} <br />
   <strong>Data/hora: </strong> {{ date }} <br />
+  <strong>Produto: </strong> {{ product }} <br />
+  <strong>Entregar em: </strong>
+  {{ address }}, {{ number }} - {{ city }}-{{ state }} CEP: {{ zip_code }} <br />
   <br />
   <small>
-    Vá até o loja para retirar sua entrega.
+    Não perca tempo e vá até a FastFeet para retirar sua entrega.
   </small>
 </p>

@@ -9,7 +9,7 @@ class DeliveryMail {
   }
 
   async handle({ data }) {
-    const { deliveryman, recipient, createdAt } = data;
+    const { deliveryman, recipient, product, createdAt } = data;
 
     await Mail.sendMail({
       to: `${deliveryman.name} <${deliveryman.email}>`,
@@ -18,6 +18,13 @@ class DeliveryMail {
       context: {
         deliveryman: deliveryman.name,
         recipient: recipient.name,
+        product,
+        address: recipient.address,
+        number: recipient.number,
+        address_complement: recipient.address_complement,
+        city: recipient.city,
+        state: recipient.state,
+        zip_code: recipient.zip_code,
         date: format(parseISO(createdAt), "'dia' dd 'de' MMMM', às' H:mm'h'", {
           locale: pt,
         }),

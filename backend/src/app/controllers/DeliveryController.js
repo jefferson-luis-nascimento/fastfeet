@@ -15,6 +15,7 @@ const attributes = {
     'deliveryman_id',
     'signature_id',
     'created_at',
+    'canceled_at',
   ],
   include: [
     {
@@ -48,6 +49,7 @@ const attributes = {
       attributes: ['name', 'path', 'url'],
     },
   ],
+  order: ['id'],
 };
 
 class DeliveryController {

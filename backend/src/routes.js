@@ -63,4 +63,9 @@ routes.post(
   DeliveryProblemController.store
 );
 
+routes.delete(
+  '/problems/:problem_id/cancel-delivery',
+  DeliveryProblemController.delete
+);
+
 export default routes;

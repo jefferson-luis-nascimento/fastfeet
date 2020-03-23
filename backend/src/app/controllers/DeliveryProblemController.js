@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import DeliveryProblem from '../models/DeliveryProblem';
+import Delivery from '../models/Delivery';
 
 class DeliveryProblemController {
   async show(req, res) {
@@ -34,6 +35,22 @@ class DeliveryProblemController {
     });
 
     return res.json({ id, description, created_at });
+  }
+
+  async delete(req, res) {
+    const { problem_id } = req.params;
+
+    const { delivery_id } = await DeliveryProblem.findByPk(problem_id);
+
+    if (!delivery_id) {
+      return res.status(404).json({ error: 'Delivery Problem not found' });
+    }
+
+    const delivery = await Delivery.findByPk(delivery_id);
+
+    const { canceled_at } = await delivery.update({ canceled_at: new Date() });
+
+    return res.json({ id: problem_id, canceled_at });
   }
 }
 

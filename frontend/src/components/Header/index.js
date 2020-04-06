@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { Container, Content, Menu, Profile } from './styles';
 
@@ -27,7 +27,10 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="FastFeet" />
+          <Link to="/dashboard">
+            <img src={logo} alt="FastFeet" />
+          </Link>
+
           <Menu>
             <NavLink to="/deliveries" activeStyle={styles.activeStyle}>
               ENCOMENDAS

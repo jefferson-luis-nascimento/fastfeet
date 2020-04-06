@@ -12,6 +12,8 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
+
+      <Route path="/" component={() => <h3>404 - Página não encontrada</h3>} />
     </Switch>
   );
 }

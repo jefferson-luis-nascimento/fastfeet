@@ -1,8 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+import 'react-toastify/dist/ReactToastify.css';
 
+export default createGlobalStyle`
   * {
     margin: 0;
     padding: 0;

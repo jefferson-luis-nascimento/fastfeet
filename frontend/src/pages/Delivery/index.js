@@ -32,7 +32,27 @@ export default function Delivery() {
             <td>#01</td>
             <td>Ludwing Van Beethoven</td>
             <td>
-              <NameWithInitials>Jhon Doe</NameWithInitials>
+              <NameWithInitials index={1}>Jhon Doe</NameWithInitials>
+            </td>
+            <td>Rio do Sul</td>
+            <td>Santa Catarina</td>
+            <td>
+              <span>Entregue</span>
+            </td>
+            <td>
+              <span>...</span>
+              <ul>
+                <li>Visualizar</li>
+                <li>Editar</li>
+                <li>Excluir</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>#02</td>
+            <td>Wolfgang Amadeus Mozart</td>
+            <td>
+              <NameWithInitials index={300}>Gaspar Antunes</NameWithInitials>
             </td>
             <td>Rio do Sul</td>
             <td>Santa Catarina</td>

@@ -5,21 +5,21 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+`;
 
-  #initials {
-    text-align: center;
-    padding: 10px;
-    background: ${lighten(0.25, '#a28fd0')};
-    border-radius: 50%;
-    color: #a28fd0;
-    margin: 0 5px;
-    font-size: 16px;
-    font-weight: bold;
-  }
+export const Initials = styled.div`
+  text-align: center;
+  padding: 10px;
+  background: ${(props) => lighten(0.25, props.color)};
+  border-radius: 50%;
+  color: ${(props) => props.color};
+  margin: 0 5px;
+  font-size: 16px;
+  font-weight: bold;
+`;
 
-  #name {
-    color: #666;
-    font-size: 16px;
-    font-weight: bold;
-  }
+export const Name = styled.span`
+  color: #666;
+  font-size: 16px;
+  font-weight: bold;
 `;

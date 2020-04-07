@@ -2,7 +2,9 @@ import React from 'react';
 import { MdAdd } from 'react-icons/md';
 
 import { Container, DeliveryTable } from './styles';
+import Action from '~/components/Action';
 import NameWithInitials from '~/components/NameWithInitials';
+import Status from '~/components/Status';
 
 export default function Delivery() {
   return (
@@ -37,15 +39,10 @@ export default function Delivery() {
             <td>Rio do Sul</td>
             <td>Santa Catarina</td>
             <td>
-              <span>Entregue</span>
+              <Status>Entregue</Status>
             </td>
             <td>
-              <span>...</span>
-              <ul>
-                <li>Visualizar</li>
-                <li>Editar</li>
-                <li>Excluir</li>
-              </ul>
+              <Action />
             </td>
           </tr>
           <tr>
@@ -57,15 +54,42 @@ export default function Delivery() {
             <td>Rio do Sul</td>
             <td>Santa Catarina</td>
             <td>
-              <span>Entregue</span>
+              <Status>Pendente</Status>
             </td>
             <td>
-              <span>...</span>
-              <ul>
-                <li>Visualizar</li>
-                <li>Editar</li>
-                <li>Excluir</li>
-              </ul>
+              <Action />
+            </td>
+          </tr>
+          <tr>
+            <td>#03</td>
+            <td>Jhoann Sabastian Bach</td>
+            <td>
+              <NameWithInitials index={3}>Dai Jiang Silva</NameWithInitials>
+            </td>
+            <td>Rio do Sul</td>
+            <td>Santa Catarina</td>
+            <td>
+              <Status>Retirada</Status>
+            </td>
+            <td>
+              <Action />
+            </td>
+          </tr>
+          <tr>
+            <td>#03</td>
+            <td>Frederich Chopin</td>
+            <td>
+              <NameWithInitials index={15}>
+                Jefferson Luís Nascimento
+              </NameWithInitials>
+            </td>
+            <td>Rio do Sul</td>
+            <td>Santa Catarina</td>
+            <td>
+              <Status>Cancelada</Status>
+            </td>
+            <td>
+              <Action />
             </td>
           </tr>
         </tbody>

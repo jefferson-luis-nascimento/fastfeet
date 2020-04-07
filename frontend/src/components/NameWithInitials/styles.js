@@ -15,11 +15,9 @@ export const Initials = styled.div`
   color: ${(props) => props.color};
   margin: 0 5px;
   font-size: 16px;
-  font-weight: bold;
 `;
 
 export const Name = styled.span`
   color: #666;
   font-size: 16px;
-  font-weight: bold;
 `;

@@ -3,9 +3,10 @@ import { MdAdd, MdSearch } from 'react-icons/md';
 
 import { Container, Filter } from './styles';
 import Table from '~/components/Table';
+import PageTitle from '~/components/PageTitle';
 
 export default function Delivery() {
-  const [data, setData] = useState({
+  const [data] = useState({
     columns: [
       { name: 'ID', type: 'id' },
       { name: 'Destinarário' },
@@ -60,7 +61,7 @@ export default function Delivery() {
 
   return (
     <Container>
-      <h1>Gerenciando Encomendas</h1>
+      <PageTitle>Gerenciando Encomendas</PageTitle>
       <Filter>
         <div>
           <MdSearch size={24} color="#999" />

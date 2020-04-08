@@ -16,6 +16,7 @@ export default function NameWithInitials({ children, index }) {
 
   return (
     <Container>
+      {console.tron.log(color)}
       <Initials color={color}>{initials}</Initials>
       <Name>{children}</Name>
     </Container>

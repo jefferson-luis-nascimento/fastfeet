@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  height: 64px;
+  height: 44px;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -39,7 +39,6 @@ export const Menu = styled.div`
 
   a {
     color: #999;
-    font-size: 16px;
     font-weight: bold;
     margin: 0 10px;
   }

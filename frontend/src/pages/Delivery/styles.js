@@ -56,34 +56,3 @@ export const Filter = styled.div`
     }
   }
 `;
-
-export const DeliveryTable = styled.table`
-  width: 100%;
-  border: none;
-  border-collapse: separate;
-  border-spacing: 0 15px;
-
-  tr th {
-    font-size: 16px;
-    color: #444;
-    text-align: left;
-  }
-
-  tr th .actions {
-    text-align: right;
-  }
-
-  tr td {
-    border: 1px solid #fff;
-    border-radius: 4px;
-    background: #fff;
-    color: #666;
-    text-align: left;
-    line-height: 20px;
-    padding: 5px 10px;
-  }
-
-  tr td .actions {
-    text-align: end;
-  }
-`;

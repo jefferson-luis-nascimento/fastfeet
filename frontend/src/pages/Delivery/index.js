@@ -1,7 +1,7 @@
 import React from 'react';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdSearch } from 'react-icons/md';
 
-import { Container, DeliveryTable } from './styles';
+import { Container, DeliveryTable, Filter } from './styles';
 import Action from '~/components/Action';
 import NameWithInitials from '~/components/NameWithInitials';
 import Status from '~/components/Status';
@@ -10,13 +10,21 @@ export default function Delivery() {
   return (
     <Container>
       <h1>Gerenciando Encomendas</h1>
-
-      <input type="text" name="filer" id="filter" />
-      <button type="button">
-        <MdAdd size={20} color="#fff" />
-        <span>Cadastrar</span>
-      </button>
-
+      <Filter>
+        <div>
+          <MdSearch size={24} color="#999" />
+          <input
+            type="text"
+            name="filer"
+            id="filter"
+            placeholder="Buscar por encomendas"
+          />
+        </div>
+        <button type="button">
+          <MdAdd size={24} color="#fff" />
+          <span>CADASTRAR</span>
+        </button>
+      </Filter>
       <DeliveryTable>
         <thead>
           <tr>
@@ -26,7 +34,7 @@ export default function Delivery() {
             <th>Cidade</th>
             <th>Estado</th>
             <th>Status</th>
-            <th>Ações</th>
+            <th className="actions">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +49,7 @@ export default function Delivery() {
             <td>
               <Status>Entregue</Status>
             </td>
-            <td>
+            <td className="actions">
               <Action />
             </td>
           </tr>
@@ -76,7 +84,7 @@ export default function Delivery() {
             </td>
           </tr>
           <tr>
-            <td>#03</td>
+            <td>#04</td>
             <td>Frederich Chopin</td>
             <td>
               <NameWithInitials index={15}>

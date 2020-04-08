@@ -19,5 +19,4 @@ export const Initials = styled.div`
 
 export const Name = styled.span`
   color: #666;
-  font-size: 16px;
 `;

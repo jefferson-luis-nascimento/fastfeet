@@ -23,23 +23,24 @@ export const ActionList = styled.div`
   }};
   z-index: 1;
   position: absolute;
-  width: 180px;
-  left: calc(50% - 90px);
-  top: calc(100% + 30px);
+  width: 140px;
+  left: calc(50% - 70px);
+  top: calc(100% + 10px);
   background: #fff;
+  border: 1px solid #eeefff;
   border-radius: 4px;
   padding: 10px;
 
   &::before {
     content: '';
     position: absolute;
-    left: calc(50% - 20px);
-    top: -20px;
+    left: calc(50% - 5px);
+    top: -5px;
     width: 0;
     height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 20px solid #fff;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #fff;
   }
 `;
 
@@ -50,10 +51,10 @@ export const ActionItem = styled.button`
   background: none;
   border: 0;
   width: 100%;
-  padding: 15px;
+  padding: 10px;
 
   & + button {
-    border-top: 1px solid #aaa;
+    border-top: 1px solid #eeefff;
     width: 100%;
   }
 
@@ -63,6 +64,6 @@ export const ActionItem = styled.button`
   }
 
   &:hover {
-    background: #eee;
+    background: #eeefff;
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   MdChevronLeft,
@@ -16,10 +16,10 @@ export default function Table({ data }) {
   const [newData] = useState({
     columns: data.columns,
     items: data.items.map((item, itemIndex) => ({
+      index: itemIndex,
       newItem: Object.values(item).map((value, index) => ({
         value,
         type: data.columns[index].type || '',
-        index: itemIndex,
       })),
     })),
   });
@@ -63,9 +63,10 @@ export default function Table({ data }) {
         <tbody>
           {newData.items.map((newItem) => (
             <tr key={newItem.id}>
+              {console.tron.log(newItem)}
               {Object.values(newItem).map((value) =>
                 Object.values(value).map((newValue) =>
-                  renderColumn(newValue.type, newValue.value, newValue.index)
+                  renderColumn(newValue.type, newValue.value, newItem.index)
                 )
               )}
               <td className="actions">

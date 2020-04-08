@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { MdAdd, MdSearch } from 'react-icons/md';
 
-import { Container, Filter } from './styles';
+import { Container } from './styles';
+import Filter from '~/components/Filter';
 import Table from '~/components/Table';
 import PageTitle from '~/components/PageTitle';
 
@@ -62,21 +62,7 @@ export default function Delivery() {
   return (
     <Container>
       <PageTitle>Gerenciando Encomendas</PageTitle>
-      <Filter>
-        <div>
-          <MdSearch size={24} color="#999" />
-          <input
-            type="text"
-            name="filer"
-            id="filter"
-            placeholder="Buscar por encomendas"
-          />
-        </div>
-        <button type="button">
-          <MdAdd size={24} color="#fff" />
-          <span>CADASTRAR</span>
-        </button>
-      </Filter>
+      <Filter placeholder="Buscar por encomendas" />
       <Table data={data} />
     </Container>
   );

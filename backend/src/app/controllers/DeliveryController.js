@@ -66,7 +66,9 @@ class DeliveryController {
   }
 
   async show(req, res) {
-    const { page = 1, limit = 20 } = req.query;
+    const { page = 1 } = req.query;
+
+    const limit = 5;
 
     const deliveries = await Delivery.findAll({
       limit,

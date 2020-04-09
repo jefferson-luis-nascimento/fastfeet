@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
 
   button {
-    background: ${(props) => (props.disabled ? '#ccc' : 'none')};
+    background: none;
     border: none;
     padding: 10px;
     color: #444;

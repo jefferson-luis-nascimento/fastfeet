@@ -8,9 +8,9 @@ import randomColor from '~/util/randomColor';
 export default function NameWithInitials({ children, index }) {
   const words = children.split(' ');
 
-  const initials = `${words[0].substring(0, 1)}${words[
-    words.length - 1
-  ].substring(0, 1)}`;
+  const initials = `${words[0].substring(0, 1)}${
+    words.length > 1 ? words[words.length - 1].substring(0, 1) : ''
+  }`;
 
   const color = randomColor(index);
 

@@ -8,13 +8,16 @@ export const Container = styled.div`
 `;
 
 export const Initials = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
   background: ${(props) => lighten(0.25, props.color)};
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   color: ${(props) => props.color};
   margin: 0 5px;
-  font-size: 16px;
 `;
 
 export const Name = styled.span`

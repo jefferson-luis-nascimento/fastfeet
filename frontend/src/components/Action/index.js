@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { MdMoreHoriz, MdRemoveRedEye, MdEdit, MdRemove } from 'react-icons/md';
+import { MdMoreHoriz } from 'react-icons/md';
 import { Container, Badge, ActionList, ActionItem } from './styles';
 
-export default function Action() {
+export default function Action({ actions }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -14,6 +15,12 @@ export default function Action() {
     setVisible(!visible);
   }
 
+  function renderIcon(icon) {
+    const { Icon, size, color } = icon;
+
+    return <Icon size={size} color={color} />;
+  }
+
   return (
     <Container>
       <Badge onClick={handleToggleVisible} visible={visible}>
@@ -21,19 +28,24 @@ export default function Action() {
       </Badge>
 
       <ActionList visible={visible}>
-        <ActionItem>
-          <MdRemoveRedEye size={20} color="#8e5be8" />
-          <span>Visualizar</span>
-        </ActionItem>
-        <ActionItem>
-          <MdEdit size={20} color="#4d85ee" />
-          <span>Editar</span>
-        </ActionItem>
-        <ActionItem>
-          <MdRemove size={20} color="#de3b3b" />
-          <span>Excluir</span>
-        </ActionItem>
+        {actions.map((action) => (
+          <ActionItem>
+            <>{renderIcon(action.icon)}</>
+            <span>{action.name}</span>
+          </ActionItem>
+        ))}
       </ActionList>
     </Container>
   );
 }
+
+Action.propTypes = {
+  actions: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    icon: PropTypes.shape({
+      Icon: PropTypes.element.isRequired,
+      size: PropTypes.number.isRequired,
+      color: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

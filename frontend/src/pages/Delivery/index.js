@@ -1,63 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { MdRemoveRedEye, MdEdit, MdDelete } from 'react-icons/md';
 
 import { Container } from './styles';
 import Filter from '~/components/Filter';
 import Table from '~/components/Table';
 import PageTitle from '~/components/PageTitle';
 
+import api from '~/services/api';
+
 export default function Delivery() {
-  const [data] = useState({
-    columns: [
-      { name: 'ID', type: 'id' },
-      { name: 'Destinarário' },
-      { name: 'Entregador', type: 'initials' },
-      { name: 'Cidade' },
-      { name: 'Estado' },
-      { name: 'Status', type: 'status' },
-    ],
-    items: [
-      {
-        id: '01',
-        recipient: 'Ludwing Van Beethoven',
-        deliveryman: 'Jhon Doe',
-        city: 'Jundiaí',
-        state: 'São Paulo',
-        status: 'Entregue',
-      },
-      {
-        id: '02',
-        recipient: 'Wolfgang Amadeus Mozart',
-        deliveryman: 'Gaspar Antunes',
-        city: 'Rio das Pedras',
-        state: 'Santa Catarina',
-        status: 'Pendente',
-      },
-      {
-        id: '03',
-        recipient: 'Johann Sebatian Bach',
-        deliveryman: 'Dai Jang',
-        city: 'Vitória',
-        state: 'Espirito Santo',
-        status: 'Retirada',
-      },
-      {
-        id: '04',
-        recipient: 'Fraderich Chopin',
-        deliveryman: 'Tom Hanson',
-        city: 'Salvador',
-        state: 'Bahia',
-        status: 'Cancelada',
-      },
-      {
-        id: '05',
-        recipient: 'Antonio Vivaldi',
-        deliveryman: 'Rosseta Castro',
-        city: 'Belém',
-        state: 'Pará',
-        status: 'Entregue',
-      },
-    ],
-  });
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    async function loadDeliveries() {
+      const response = await api.get('/deliveries');
+
+      setData({
+        columns: [
+          { name: 'ID', type: 'id' },
+          { name: 'Destinarário' },
+          { name: 'Entregador_id', show: false },
+          { name: 'Entregador', type: 'initials' },
+          { name: 'Cidade' },
+          { name: 'Estado' },
+          { name: 'Status', type: 'status' },
+        ],
+        actions: [
+          {
+            name: 'Visualizar',
+            icon: { Icon: MdRemoveRedEye, size: 20, color: '#8e5be8' },
+          },
+          {
+            name: 'Editar',
+            icon: { Icon: MdEdit, size: 20, color: '#4d85ee' },
+          },
+          {
+            name: 'Excluir',
+            icon: { Icon: MdDelete, size: 20, color: '#de3b3b' },
+          },
+        ],
+        items: response.data.map((delivery) => ({
+          id: delivery.id,
+          recipient: delivery.recipient.name,
+          index: delivery.deliveryman_id,
+          deliveryman: delivery.deliveryman.name,
+          city: delivery.recipient.city,
+          state: delivery.recipient.state,
+          status: delivery.status || 'Pendente',
+        })),
+      });
+    }
+
+    loadDeliveries();
+  }, []);
 
   return (
     <Container>

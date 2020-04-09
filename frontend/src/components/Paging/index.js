@@ -66,14 +66,20 @@ export default function Paging() {
         onClick={handleFirstPage}
         disabled={disablePreviousButton}
       >
-        <MdFirstPage size={30} color="#666" />
+        <MdFirstPage
+          size={30}
+          color={disablePreviousButton ? '#bbb' : '#666'}
+        />
       </button>
       <button
         type="button"
         onClick={handlePreviousPage}
         disabled={disablePreviousButton}
       >
-        <MdChevronLeft size={30} color="#666" />
+        <MdChevronLeft
+          size={30}
+          color={disablePreviousButton ? '#bbb' : '#666'}
+        />
       </button>
       <span>{pageText}</span>
       <button
@@ -81,14 +87,14 @@ export default function Paging() {
         onClick={handleNextPage}
         disabled={disableNextButton}
       >
-        <MdChevronRight size={30} color="#666" />
+        <MdChevronRight size={30} color={disableNextButton ? '#bbb' : '#666'} />
       </button>
       <button
         type="button"
         onClick={handleLastPage}
         disabled={disableNextButton}
       >
-        <MdLastPage size={30} color="#666" />
+        <MdLastPage size={30} color={disableNextButton ? '#bbb' : '#666'} />
       </button>
     </Container>
   );

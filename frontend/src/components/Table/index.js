@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  MdChevronLeft,
-  MdChevronRight,
-  MdFirstPage,
-  MdLastPage,
-} from 'react-icons/md';
 
-import { Container, TableList, Footer } from './styles';
+import { Container, TableList } from './styles';
 import Action from '~/components/Action';
 import NameWithInitials from '~/components/NameWithInitials';
 import Status from '~/components/Status';
+import Paging from '~/components/Paging';
 
 export default function Table({ data }) {
   const [newData] = useState({
@@ -30,11 +25,9 @@ export default function Table({ data }) {
         return <td>#{value}</td>;
       case 'initials':
         return (
-          <>
-            <td>
-              <NameWithInitials index={index}>{value}</NameWithInitials>
-            </td>
-          </>
+          <td>
+            <NameWithInitials index={index}>{value}</NameWithInitials>
+          </td>
         );
       case 'status':
         return (
@@ -76,12 +69,7 @@ export default function Table({ data }) {
           ))}
         </tbody>
       </TableList>
-      <Footer>
-        <MdFirstPage size={20} color="#666" />
-        <MdChevronLeft size={20} color="#666" />
-        <MdChevronRight size={20} color="#666" />
-        <MdLastPage size={20} color="#666" />
-      </Footer>
+      <Paging />
     </Container>
   );
 }

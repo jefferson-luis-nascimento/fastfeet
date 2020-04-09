@@ -11,6 +11,7 @@ export const TableList = styled.table`
     font-size: 16px;
     color: #444;
     text-align: left;
+    padding: 5px 10px;
   }
 
   th .actions {
@@ -39,5 +40,3 @@ export const TableList = styled.table`
     border-bottom-right-radius: 4px;
   }
 `;
-
-export const Footer = styled.div``;

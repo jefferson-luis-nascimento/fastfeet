@@ -9,6 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.span`
+  margin-right: auto;
   background: ${(props) => lighten(0.3, props.color)};
   border: 0;
   position: relative;

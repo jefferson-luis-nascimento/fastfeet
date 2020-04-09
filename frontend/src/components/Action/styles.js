@@ -12,9 +12,15 @@ export const Badge = styled.button`
   border: 0;
   position: relative;
   display: flex;
+  width: 36px;
+  height: 36px;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+
+  &:hover {
+    background: #eeefff;
+  }
 `;
 
 export const ActionList = styled.div`

@@ -56,15 +56,18 @@ export default function Delivery() {
               icon: { Icon: MdDelete, size: 20, color: '#de3b3b' },
             },
           ],
-          items: response.data.rows.map((delivery) => ({
-            id: delivery.id,
-            recipient: delivery.recipient.name,
-            index: delivery.deliveryman_id,
-            deliveryman: delivery.deliveryman.name,
-            city: delivery.recipient.city,
-            state: delivery.recipient.state,
-            status: delivery.status || 'Pendente',
-          })),
+          items: response.data.rows.map((delivery) => {
+            console.tron.log(delivery);
+            return {
+              id: delivery.id,
+              recipient: delivery.recipient.name,
+              index: delivery.deliveryman_id,
+              deliveryman: delivery.deliveryman.name,
+              city: delivery.recipient.city,
+              state: delivery.recipient.state,
+              status: delivery.status || 'Pendente',
+            };
+          }),
         });
       }
 

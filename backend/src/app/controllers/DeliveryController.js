@@ -16,6 +16,9 @@ const attributes = {
     'signature_id',
     'created_at',
     'canceled_at',
+    'start_date',
+    'end_date',
+    'status',
   ],
   include: [
     {

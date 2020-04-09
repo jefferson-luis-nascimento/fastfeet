@@ -7,13 +7,11 @@ import NameWithInitials from '~/components/NameWithInitials';
 import Status from '~/components/Status';
 import Paging from '~/components/Paging';
 
-export default function Table({ data }) {
+export default function Table({ data, paging, loadItems }) {
   const [newData, setNewData] = useState(null);
 
   useEffect(() => {
     if (!data) return;
-
-    console.tron.log(data);
 
     setNewData({
       columns: data.columns.map((column) => ({
@@ -90,7 +88,7 @@ export default function Table({ data }) {
             ))}
         </tbody>
       </TableList>
-      <Paging />
+      <Paging paging={paging} loadItems={loadItems} />
     </Container>
   );
 }
@@ -101,4 +99,9 @@ Table.propTypes = {
     actions: PropTypes.arrayOf(PropTypes.object).isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
+  paging: PropTypes.shape({
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+  }).isRequired,
+  loadItems: PropTypes.func.isRequired,
 };

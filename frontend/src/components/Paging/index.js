@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import {
   MdChevronLeft,
   MdChevronRight,
@@ -8,55 +9,58 @@ import {
 
 import { Container } from './styles';
 
-export default function Paging() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage] = useState(5);
-  const [disablePreviousButton, setDisablePreviousButton] = useState(false);
-  const [disableNextButton, setDisableNextButton] = useState(false);
+export default function Paging({ paging, loadItems }) {
+  const { currentPage, totalPages } = paging;
 
-  const pageText = useMemo(() => {
-    return `${currentPage} de ${totalPage}`;
-  }, [currentPage, totalPage]);
+  const [disablePreviousButton, setDisablePreviousButton] = useState(true);
+  const [disableNextButton, setDisableNextButton] = useState(true);
 
-  function disableButtons(page) {
-    setCurrentPage(page);
-
-    if (totalPage === 1) {
+  const disableButtons = useCallback(() => {
+    if (totalPages === 1) {
       setDisablePreviousButton(true);
       setDisableNextButton(true);
-      return;
-    }
-
-    if (page === 1) {
+    } else if (currentPage === 1) {
       setDisablePreviousButton(true);
       setDisableNextButton(false);
-      return;
-    }
-
-    if (page === totalPage) {
+    } else if (currentPage === totalPages) {
       setDisableNextButton(true);
       setDisablePreviousButton(false);
+    } else {
+      setDisableNextButton(false);
+      setDisablePreviousButton(false);
     }
-  }
+  }, [currentPage, totalPages]);
+
+  const pageText = useMemo(() => {
+    return `${currentPage} de ${totalPages}`;
+  }, [currentPage, totalPages]);
+
+  useEffect(() => {
+    disableButtons(1);
+  }, [disableButtons]);
 
   function handleFirstPage() {
     disableButtons(1);
+    loadItems(1);
   }
 
   function handlePreviousPage() {
     if (currentPage > 1) {
-      disableButtons(currentPage - 1);
+      loadItems(currentPage - 1);
     }
+    disableButtons(currentPage);
   }
 
   function handleNextPage() {
-    if (currentPage < totalPage) {
-      disableButtons(currentPage + 1);
+    if (currentPage < totalPages) {
+      loadItems(currentPage + 1);
     }
+    disableButtons(currentPage);
   }
 
   function handleLastPage() {
-    disableButtons(totalPage);
+    loadItems(totalPages);
+    disableButtons(currentPage);
   }
 
   return (
@@ -99,3 +103,11 @@ export default function Paging() {
     </Container>
   );
 }
+
+Paging.propTypes = {
+  paging: PropTypes.shape({
+    currentPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+  }).isRequired,
+  loadItems: PropTypes.func.isRequired,
+};

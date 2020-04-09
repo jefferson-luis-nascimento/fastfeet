@@ -70,7 +70,7 @@ class DeliveryController {
 
     const limit = 5;
 
-    const deliveries = await Delivery.findAll({
+    const deliveries = await Delivery.findAndCountAll({
       limit,
       offset: (page - 1) * limit,
       ...attributes,

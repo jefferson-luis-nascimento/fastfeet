@@ -8,13 +8,21 @@ export const Container = styled.div`
   button {
     background: none;
     border: none;
-    padding: 10px;
-    color: #444;
+    margin: 10px;
+    padding: 5px;
     font-size: 16px;
     font-weight: bold;
 
     &:hover {
       background: #ddd;
     }
+  }
+
+  span {
+    color: #444;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
   }
 `;

@@ -7,6 +7,7 @@ import SignIn from '~/pages/SingIn';
 
 import Dashboard from '~/pages/Dashboard';
 import Delivery from '~/pages/Delivery';
+import DeliveryRegister from '~/pages/Delivery/Register';
 import Deliveryman from '~/pages/Deliveryman';
 import Recipient from '~/pages/Recipient';
 import Problem from '~/pages/Problem';
@@ -18,6 +19,11 @@ export default function Routes() {
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
       <Route path="/deliveries" component={Delivery} isPrivate />
+      <Route
+        path="/deliveries-register"
+        component={DeliveryRegister}
+        isPrivate
+      />
       <Route path="/deliverymen" component={Deliveryman} isPrivate />
       <Route path="/recipients" component={Recipient} isPrivate />
       <Route path="/problems" component={Problem} isPrivate />

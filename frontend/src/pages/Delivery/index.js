@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MdRemoveRedEye, MdEdit, MdDelete } from 'react-icons/md';
 
-import { Container } from './styles';
+import Container from '~/components/Container';
 import Filter from '~/components/Filter';
 import Table from '~/components/Table';
 import PageTitle from '~/components/PageTitle';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 export default function Delivery() {
   const [data, setData] = useState(null);
@@ -121,10 +122,17 @@ export default function Delivery() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function handleRegister() {
+    history.push('/deliveries-register');
+  }
+
   return (
     <Container>
       <PageTitle>Gerenciando Encomendas</PageTitle>
-      <Filter placeholder="Buscar por encomendas" />
+      <Filter
+        placeholder="Buscar por encomendas"
+        handleRegister={handleRegister}
+      />
       <Table
         data={data}
         paging={paging}

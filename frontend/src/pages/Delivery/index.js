@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { MdRemoveRedEye, MdEdit, MdDelete } from 'react-icons/md';
 
 import { Container } from './styles';
@@ -12,6 +12,34 @@ export default function Delivery() {
   const [data, setData] = useState(null);
 
   const [paging, setPaging] = useState({ currentPage: 1, totalPages: 1 });
+
+  function handleVisualize(action, id) {
+    console.tron.log(id);
+  }
+
+  function handleEdit(action, id) {
+    console.tron.log(id);
+  }
+
+  function handleRemove(action, id) {
+    console.tron.log(id);
+  }
+
+  function handleAction(action, id) {
+    switch (action.toLowerCase()) {
+      case 'visualizar':
+        handleVisualize(action, id);
+        break;
+      case 'editar':
+        handleEdit(action, id);
+        break;
+      case 'excluir':
+        handleRemove(action, id);
+        break;
+      default:
+        throw new Error('Ação não encontrada.');
+    }
+  }
 
   const numberOfPages = useCallback((totalItems, itemsPerPage) => {
     const rest = totalItems % itemsPerPage;
@@ -45,19 +73,31 @@ export default function Delivery() {
           actions: [
             {
               name: 'Visualizar',
-              icon: { Icon: MdRemoveRedEye, size: 20, color: '#8e5be8' },
+              icon: {
+                Icon: MdRemoveRedEye,
+                size: 20,
+                color: '#8e5be8',
+              },
             },
             {
               name: 'Editar',
-              icon: { Icon: MdEdit, size: 20, color: '#4d85ee' },
+              icon: {
+                Icon: MdEdit,
+                size: 20,
+                color: '#4d85ee',
+              },
             },
             {
               name: 'Excluir',
-              icon: { Icon: MdDelete, size: 20, color: '#de3b3b' },
+              icon: {
+                Icon: MdDelete,
+                size: 20,
+                color: '#de3b3b',
+                to: '/',
+              },
             },
           ],
           items: response.data.rows.map((delivery) => {
-            console.tron.log(delivery);
             return {
               id: delivery.id,
               recipient: delivery.recipient.name,
@@ -78,13 +118,19 @@ export default function Delivery() {
 
   useEffect(() => {
     loadDeliveries(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Container>
       <PageTitle>Gerenciando Encomendas</PageTitle>
       <Filter placeholder="Buscar por encomendas" />
-      <Table data={data} paging={paging} loadItems={loadDeliveries} />
+      <Table
+        data={data}
+        paging={paging}
+        loadItems={loadDeliveries}
+        handleAction={handleAction}
+      />
     </Container>
   );
 }

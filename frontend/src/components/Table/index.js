@@ -7,7 +7,7 @@ import NameWithInitials from '~/components/NameWithInitials';
 import Status from '~/components/Status';
 import Paging from '~/components/Paging';
 
-export default function Table({ data, paging, loadItems }) {
+export default function Table({ data, paging, loadItems, handleAction }) {
   const [newData, setNewData] = useState(null);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export default function Table({ data, paging, loadItems }) {
       })),
       actions: data.actions,
       items: data.items.map((item) => ({
+        id: item.id,
         newItem: Object.values(item).map((value, index) => {
           return {
             value,
@@ -41,23 +42,23 @@ export default function Table({ data, paging, loadItems }) {
 
     switch (item.type) {
       case 'id':
-        return <td>#{item.value}</td>;
+        return <td key={item.value}>#{item.value}</td>;
       case 'initials':
         return (
-          <td>
+          <td key={item.value}>
             <NameWithInitials index={item.index}>{item.value}</NameWithInitials>
           </td>
         );
       case 'status':
         return (
           <>
-            <td>
+            <td key={item.value}>
               <Status>{item.value}</Status>
             </td>
           </>
         );
       default:
-        return <td>{item.value}</td>;
+        return <td key={item.value}>{item.value}</td>;
     }
   }
 
@@ -82,7 +83,11 @@ export default function Table({ data, paging, loadItems }) {
                   Object.values(value).map((newValue) => renderColumn(newValue))
                 )}
                 <td className="actions">
-                  <Action actions={newData.actions} />
+                  <Action
+                    id={newItem.id}
+                    actions={newData.actions}
+                    handleAction={handleAction}
+                  />
                 </td>
               </tr>
             ))}
@@ -96,12 +101,26 @@ export default function Table({ data, paging, loadItems }) {
 Table.propTypes = {
   data: PropTypes.shape({
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    actions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    actions: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.shape({
+          Icon: PropTypes.element.isRequired,
+          size: PropTypes.number.isRequired,
+          color: PropTypes.string.isRequired,
+        }).isRequired,
+      })
+    ).isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
+  }),
   paging: PropTypes.shape({
     currentPage: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
   }).isRequired,
   loadItems: PropTypes.func.isRequired,
+  handleAction: PropTypes.func.isRequired,
+};
+
+Table.defaultProps = {
+  data: null,
 };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Container, Badge, ActionList, ActionItem } from './styles';
 
-export default function Action({ actions }) {
+export default function Action({ id, actions, handleAction }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -21,6 +21,11 @@ export default function Action({ actions }) {
     return <Icon size={size} color={color} />;
   }
 
+  function handleActionSelected(action) {
+    setVisible(false);
+    handleAction(action, id);
+  }
+
   return (
     <Container>
       <Badge onClick={handleToggleVisible} visible={visible}>
@@ -29,7 +34,10 @@ export default function Action({ actions }) {
 
       <ActionList visible={visible}>
         {actions.map((action) => (
-          <ActionItem>
+          <ActionItem
+            key={action.name}
+            onClick={() => handleActionSelected(action.name)}
+          >
             <>{renderIcon(action.icon)}</>
             <span>{action.name}</span>
           </ActionItem>
@@ -40,12 +48,16 @@ export default function Action({ actions }) {
 }
 
 Action.propTypes = {
-  actions: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    icon: PropTypes.shape({
-      Icon: PropTypes.element.isRequired,
-      size: PropTypes.number.isRequired,
-      color: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      icon: PropTypes.shape({
+        Icon: PropTypes.element.isRequired,
+        size: PropTypes.number.isRequired,
+        color: PropTypes.string.isRequired,
+      }).isRequired,
+    })
+  ).isRequired,
+  handleAction: PropTypes.func.isRequired,
 };

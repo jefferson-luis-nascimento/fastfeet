@@ -7,5 +7,9 @@ export const Container = styled.div`
   select {
     font-size: 16px;
     color: #444;
+
+    :focus {
+      outline: 0;
+    }
   }
 `;

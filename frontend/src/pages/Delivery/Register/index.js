@@ -21,12 +21,15 @@ export default function Register() {
         q: name,
       },
     });
-    setRecipients(
-      response.data.map((recipient) => ({
-        value: recipient.id,
-        label: recipient.name,
-      }))
-    );
+
+    const options = response.data.map((recipient) => ({
+      value: recipient.id,
+      label: recipient.name,
+    }));
+
+    setRecipients(options);
+
+    return options;
   }, []);
 
   const loadDeliverymen = useCallback(async (name) => {
@@ -35,12 +38,15 @@ export default function Register() {
         q: name,
       },
     });
-    setDeliverymen(
-      response.data.map((deliveryman) => ({
-        value: deliveryman.id,
-        label: deliveryman.name,
-      }))
-    );
+
+    const options = response.data.map((deliveryman) => ({
+      value: deliveryman.id,
+      label: deliveryman.name,
+    }));
+
+    setDeliverymen(options);
+
+    return options;
   }, []);
 
   useEffect(() => {

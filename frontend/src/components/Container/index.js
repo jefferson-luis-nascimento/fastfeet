@@ -8,5 +8,5 @@ export default function Container({ children }) {
 }
 
 Container.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOf([PropTypes.element, PropTypes.func]).isRequired,
 };

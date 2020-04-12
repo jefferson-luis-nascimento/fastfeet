@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize/';
 
 import Delivery from '../models/Delivery';
 import File from '../models/File';
@@ -11,6 +12,7 @@ import Queue from '../../lib/Queue';
 const attributes = {
   attributes: [
     'id',
+    'product',
     'recipient_id',
     'deliveryman_id',
     'signature_id',
@@ -69,11 +71,20 @@ class DeliveryController {
   }
 
   async show(req, res) {
-    const { page = 1 } = req.query;
+    const { page = 1, q: query } = req.query;
 
     const limit = 5;
 
+    let where = null;
+
+    if (query) {
+      where = {
+        product: { [Op.iLike]: `%${query}%` },
+      };
+    }
+
     const deliveries = await Delivery.findAndCountAll({
+      where,
       limit,
       offset: (page - 1) * limit,
       ...attributes,

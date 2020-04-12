@@ -18,9 +18,16 @@ export default function Routes() {
       <Route path="/" exact component={SignIn} />
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/deliveries" component={Delivery} isPrivate />
+      <Route path="/deliveries" exact component={Delivery} isPrivate />
       <Route
-        path="/deliveries-register"
+        path="/deliveries/register"
+        exact
+        component={DeliveryRegister}
+        isPrivate
+      />
+      <Route
+        path="/deliveries/register/:id"
+        exact
         component={DeliveryRegister}
         isPrivate
       />

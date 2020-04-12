@@ -123,7 +123,7 @@ export default function Delivery() {
   }, []);
 
   function handleRegister() {
-    history.push('/deliveries-register');
+    history.push('/deliveries/register');
   }
 
   return (

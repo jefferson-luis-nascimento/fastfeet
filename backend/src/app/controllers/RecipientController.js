@@ -1,8 +1,72 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Recipient from '../models/Recipient';
 
 class RecipientController {
+  async index(req, res) {
+    const { recipient_id } = req.params;
+
+    const recipient = await Recipient.findByPk(recipient_id);
+
+    if (!recipient) {
+      return res.status(404).json({ error: 'Recipient not found' });
+    }
+
+    const {
+      name,
+      address,
+      number,
+      address_complement,
+      city,
+      state,
+      zip_code,
+    } = recipient;
+
+    return res.json({
+      id: recipient_id,
+      name,
+      address,
+      number,
+      address_complement,
+      city,
+      state,
+      zip_code,
+    });
+  }
+
+  async show(req, res) {
+    const { page = 1, q: query } = req.query;
+
+    const limit = 200;
+
+    let where = null;
+
+    if (query) {
+      where = {
+        name: { [Op.iLike]: `%${query}%` },
+      };
+    }
+
+    const recipients = await Recipient.findAll({
+      where,
+      limit,
+      offset: (page - 1) * limit,
+      attributes: [
+        'id',
+        'name',
+        'address',
+        'number',
+        'address_complement',
+        'city',
+        'state',
+        'zip_code',
+      ],
+    });
+
+    return res.json(recipients);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -69,6 +133,10 @@ class RecipientController {
     const { recipient_id } = req.params;
 
     const recipient = await Recipient.findByPk(recipient_id);
+
+    if (!recipient) {
+      return res.status(404).json({ error: 'Recipient not found' });
+    }
 
     const {
       name,

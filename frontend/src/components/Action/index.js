@@ -53,7 +53,7 @@ Action.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       icon: PropTypes.shape({
-        Icon: PropTypes.element.isRequired,
+        Icon: PropTypes.oneOf([PropTypes.element, PropTypes.func]).isRequired,
         size: PropTypes.number.isRequired,
         color: PropTypes.string.isRequired,
       }).isRequired,

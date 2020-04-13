@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import { Container, TableList } from './styles';
 import Action from '~/components/Action';
@@ -82,7 +81,7 @@ export default function Table({ data, paging, loadItems, handleAction }) {
                 {Object.values(newItem).map((value) =>
                   Object.values(value).map((newValue) => renderColumn(newValue))
                 )}
-                <td className="actions">
+                <td key="action" className="actions">
                   <Action
                     id={newItem.id}
                     actions={newData.actions}
@@ -97,30 +96,3 @@ export default function Table({ data, paging, loadItems, handleAction }) {
     </Container>
   );
 }
-
-Table.propTypes = {
-  data: PropTypes.shape({
-    columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-    actions: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.shape({
-          Icon: PropTypes.element.isRequired,
-          size: PropTypes.number.isRequired,
-          color: PropTypes.string.isRequired,
-        }).isRequired,
-      })
-    ).isRequired,
-    items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }),
-  paging: PropTypes.shape({
-    currentPage: PropTypes.number.isRequired,
-    totalPages: PropTypes.number.isRequired,
-  }).isRequired,
-  loadItems: PropTypes.func.isRequired,
-  handleAction: PropTypes.func.isRequired,
-};
-
-Table.defaultProps = {
-  data: null,
-};

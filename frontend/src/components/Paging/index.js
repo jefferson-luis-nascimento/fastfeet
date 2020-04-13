@@ -64,43 +64,48 @@ export default function Paging({ paging, loadItems }) {
   }
 
   return (
-    <Container>
-      <button
-        type="button"
-        onClick={handleFirstPage}
-        disabled={disablePreviousButton}
-      >
-        <MdFirstPage
-          size={30}
-          color={disablePreviousButton ? '#bbb' : '#666'}
-        />
-      </button>
-      <button
-        type="button"
-        onClick={handlePreviousPage}
-        disabled={disablePreviousButton}
-      >
-        <MdChevronLeft
-          size={30}
-          color={disablePreviousButton ? '#bbb' : '#666'}
-        />
-      </button>
-      <span>{pageText}</span>
-      <button
-        type="button"
-        onClick={handleNextPage}
-        disabled={disableNextButton}
-      >
-        <MdChevronRight size={30} color={disableNextButton ? '#bbb' : '#666'} />
-      </button>
-      <button
-        type="button"
-        onClick={handleLastPage}
-        disabled={disableNextButton}
-      >
-        <MdLastPage size={30} color={disableNextButton ? '#bbb' : '#666'} />
-      </button>
-    </Container>
+    totalPages >= 1 && (
+      <Container>
+        <button
+          type="button"
+          onClick={handleFirstPage}
+          disabled={disablePreviousButton}
+        >
+          <MdFirstPage
+            size={30}
+            color={disablePreviousButton ? '#bbb' : '#666'}
+          />
+        </button>
+        <button
+          type="button"
+          onClick={handlePreviousPage}
+          disabled={disablePreviousButton}
+        >
+          <MdChevronLeft
+            size={30}
+            color={disablePreviousButton ? '#bbb' : '#666'}
+          />
+        </button>
+        <span>{pageText}</span>
+        <button
+          type="button"
+          onClick={handleNextPage}
+          disabled={disableNextButton}
+        >
+          <MdChevronRight
+            size={30}
+            color={disableNextButton ? '#bbb' : '#666'}
+          />
+        </button>
+        <button
+          type="button"
+          onClick={handleLastPage}
+          disabled={disableNextButton}
+        >
+          <MdLastPage size={30} color={disableNextButton ? '#bbb' : '#666'} />
+        </button>
+      </Container>
+    )
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MdRemoveRedEye, MdEdit, MdDelete } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import Container from '~/components/Container';
 import Filter from '~/components/Filter';
@@ -13,34 +14,6 @@ export default function Delivery() {
   const [data, setData] = useState(null);
 
   const [paging, setPaging] = useState({ currentPage: 1, totalPages: 1 });
-
-  function handleVisualize(action, id) {
-    console.tron.log(id);
-  }
-
-  function handleEdit(action, id) {
-    console.tron.log(id);
-  }
-
-  function handleRemove(action, id) {
-    console.tron.log(id);
-  }
-
-  function handleAction(action, id) {
-    switch (action.toLowerCase()) {
-      case 'visualizar':
-        handleVisualize(action, id);
-        break;
-      case 'editar':
-        handleEdit(action, id);
-        break;
-      case 'excluir':
-        handleRemove(action, id);
-        break;
-      default:
-        throw new Error('Ação não encontrada.');
-    }
-  }
 
   const numberOfPages = useCallback((totalItems, itemsPerPage) => {
     const rest = totalItems % itemsPerPage;
@@ -124,6 +97,45 @@ export default function Delivery() {
 
   function handleRegister() {
     history.push('/deliveries/register');
+  }
+
+  function handleVisualize(id) {
+    console.tron.log(id);
+  }
+
+  function handleEdit(id) {
+    console.tron.log(id);
+  }
+
+  async function handleRemove(id) {
+    const ok = window.confirm(`Confirma a exclusão da entrega #${id}?`);
+
+    if (!ok) return;
+
+    try {
+      await api.delete(`/deliveries/${id}`);
+      toast.success('Registro excluído com sucesso!');
+
+      await loadDeliveries(paging.currentPage);
+    } catch (error) {
+      toast.error('Não foi possível excluir o registro nesse momento!');
+    }
+  }
+
+  function handleAction(action, id) {
+    switch (action.toLowerCase()) {
+      case 'visualizar':
+        handleVisualize(id);
+        break;
+      case 'editar':
+        handleEdit(id);
+        break;
+      case 'excluir':
+        handleRemove(id);
+        break;
+      default:
+        throw new Error('Ação não encontrada.');
+    }
   }
 
   return (

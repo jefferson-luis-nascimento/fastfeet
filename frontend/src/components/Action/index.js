@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import { MdMoreHoriz } from 'react-icons/md';
 import { Container, Badge, ActionList, ActionItem } from './styles';
@@ -46,18 +45,3 @@ export default function Action({ id, actions, handleAction }) {
     </Container>
   );
 }
-
-Action.propTypes = {
-  id: PropTypes.number.isRequired,
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      icon: PropTypes.shape({
-        Icon: PropTypes.oneOf([PropTypes.element, PropTypes.func]).isRequired,
-        size: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
-      }).isRequired,
-    })
-  ).isRequired,
-  handleAction: PropTypes.func.isRequired,
-};

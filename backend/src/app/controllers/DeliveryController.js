@@ -29,6 +29,7 @@ const attributes = {
       attributes: [
         'name',
         'address',
+        'fullAddress',
         'number',
         'address_complement',
         'city',

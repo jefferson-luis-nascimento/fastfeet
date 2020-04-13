@@ -189,7 +189,10 @@ class StartEndDeliveryController {
       return res.status(404).json({ error: 'Signature not found' });
     }
 
-    const { end_date } = await delivery.update({ end_date: new Date() });
+    const { end_date } = await delivery.update({
+      end_date: new Date(),
+      signature_id,
+    });
 
     return res.json({
       delivery_id,

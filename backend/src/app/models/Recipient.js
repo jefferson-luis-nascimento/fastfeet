@@ -11,6 +11,20 @@ class Recipient extends Model {
         city: Sequelize.STRING,
         state: Sequelize.STRING,
         zip_code: Sequelize.STRING,
+        fullAddress: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            let returnValue = `${this.getDataValue(
+              'address'
+            )}, nº ${this.getDataValue('number')}`;
+
+            if (this.getDataValue('number')) {
+              returnValue += ` - ${this.getDataValue('address_complement')}`;
+            }
+
+            return returnValue;
+          },
+        },
       },
       {
         sequelize,

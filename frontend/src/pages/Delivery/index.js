@@ -1,19 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { MdRemoveRedEye, MdEdit, MdDelete } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+
+import { DeliveryInfo, DeliveryDates, DeliverySignature } from './styles';
 
 import Container from '~/components/Container';
 import Filter from '~/components/Filter';
 import Table from '~/components/Table';
 import PageTitle from '~/components/PageTitle';
+import CustomModal from '~/components/CustomModal';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
 export default function Delivery() {
   const [data, setData] = useState(null);
-
   const [paging, setPaging] = useState({ currentPage: 1, totalPages: 1 });
+  const [deliveryItem, setDeliveryItem] = useState(null);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const numberOfPages = useCallback((totalItems, itemsPerPage) => {
     const rest = totalItems % itemsPerPage;
@@ -99,8 +110,24 @@ export default function Delivery() {
     history.push('/deliveries/register');
   }
 
-  function handleVisualize(id) {
-    console.tron.log(id);
+  async function handleVisualize(id) {
+    const response = await api.get(`/deliveries/${id}`);
+
+    setDeliveryItem({
+      ...response.data,
+      start_date_formatted: response.data.start_date
+        ? format(parseISO(response.data.start_date), 'dd/MM/yyyy', {
+            locale: pt,
+          })
+        : 'Data de Retirada não informada.',
+      end_date_formatted: response.data.end_date
+        ? format(parseISO(response.data.end_date), 'dd/MM/yyyy', {
+            locale: pt,
+          })
+        : 'Data de Entrega não informada.',
+    });
+
+    openModal();
   }
 
   function handleEdit(id) {
@@ -139,18 +166,61 @@ export default function Delivery() {
   }
 
   return (
-    <Container>
-      <PageTitle>Gerenciando Encomendas</PageTitle>
-      <Filter
-        placeholder="Buscar por encomendas"
-        handleRegister={handleRegister}
-      />
-      <Table
-        data={data}
-        paging={paging}
-        loadItems={loadDeliveries}
-        handleAction={handleAction}
-      />
-    </Container>
+    <>
+      <Container>
+        <PageTitle>Gerenciando Encomendas</PageTitle>
+        <Filter
+          placeholder="Buscar por encomendas"
+          handleRegister={handleRegister}
+        />
+        <Table
+          data={data}
+          paging={paging}
+          loadItems={loadDeliveries}
+          handleAction={handleAction}
+        />
+      </Container>
+      {openModal && deliveryItem && (
+        <CustomModal openModal={modalIsOpen} setIsOpen={setIsOpen}>
+          <DeliveryInfo>
+            <h3>Informações da Encomenda</h3>
+            <div>
+              <strong>Produto: </strong>
+              <span>{deliveryItem.product}</span>
+            </div>
+            <div>
+              <strong>Endereço: </strong>
+              <span>{deliveryItem.recipient.fullAddress}</span>
+            </div>
+            <div>
+              <strong>Cidade/UF: </strong>
+              <span>{`${deliveryItem.recipient.city} - ${deliveryItem.recipient.state}`}</span>
+            </div>
+            <div>
+              <strong>CEP: </strong>
+              <span>{deliveryItem.recipient.zip_code}</span>
+            </div>
+          </DeliveryInfo>
+          <DeliveryDates>
+            <h3>Datas</h3>
+            <div>
+              <strong>Retirada: </strong>
+              <span>{deliveryItem.start_date_formatted}</span>
+            </div>
+            <div>
+              <strong>Entrega: </strong>
+              <span>{deliveryItem.end_date_formatted}</span>
+            </div>
+          </DeliveryDates>
+          <DeliverySignature>
+            <strong>Assinatura do Destinatário</strong>
+
+            {deliveryItem.signature && (
+              <img src={deliveryItem.signature.url} alt="Assinatura" />
+            )}
+          </DeliverySignature>
+        </CustomModal>
+      )}
+    </>
   );
 }

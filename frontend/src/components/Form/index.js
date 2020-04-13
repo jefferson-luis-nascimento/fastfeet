@@ -1,8 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
 
 import { Container } from './styles';
 
-export default function Form({ children }) {
-  return <Container>{children}</Container>;
-}
+const Form = forwardRef((props, ref) => {
+  const { children } = props;
+  return (
+    <Container ref={ref} {...props}>
+      {children}
+    </Container>
+  );
+});
+
+export default Form;

@@ -5,6 +5,11 @@ export const Container = styled.div`
   padding: 10px 20px;
 `;
 
-export const InputText = styled.input.attrs({
-  type: (props) => props.type,
-})``;
+export const InputText = styled.input`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 24px;
+  padding: 20px 10px;
+  width: 100%;
+  color: #444;
+`;

@@ -97,7 +97,6 @@ class DeliveryController {
     const schema = Yup.object().shape({
       recipient_id: Yup.number().required(),
       deliveryman_id: Yup.number().required(),
-      signature_id: Yup.number().required(),
       product: Yup.string().required(),
     });
 
@@ -119,16 +118,9 @@ class DeliveryController {
       return res.status(404).json({ error: 'Deliveryman not found.' });
     }
 
-    const signature = await File.findByPk(signature_id);
-
-    if (!signature) {
-      return res.status(404).json({ error: 'Signature not found.' });
-    }
-
     const { id, createdAt } = await Delivery.create({
       recipient_id,
       deliveryman_id,
-      signature_id,
       product,
     });
 
@@ -143,7 +135,6 @@ class DeliveryController {
       id,
       recipient_id,
       deliveryman_id,
-      signature_id,
       product,
       created_at: createdAt,
     });

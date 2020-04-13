@@ -6,7 +6,7 @@ import { Container, InputText } from './styles';
 import Label from '~/components/Form/Label';
 import Error from '~/components/Form/Error';
 
-export default function Input({ name, label, ...rest }) {
+export default function Input({ name, label, placeholder, ...rest }) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
 
@@ -23,6 +23,7 @@ export default function Input({ name, label, ...rest }) {
       {label && <Label htmlFor={name}>{label}</Label>}
       <InputText
         name={name}
+        placeholder={placeholder}
         rest={rest}
         ref={inputRef}
         defaultValue={defaultValue}
@@ -35,4 +36,5 @@ export default function Input({ name, label, ...rest }) {
 Input.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
 };

@@ -1,19 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Input } from '@rocketseat/unform';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import { SelectContainer } from './styles';
 
 import Container from '~/components/Container';
 import RegisterHeader from '~/components/RegisterHeader';
 import AsyncSelect from '~/components/Form/AsyncSelect';
+import Input from '~/components/Form/Input';
 import Form from '~/components/Form';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
 export default function Register() {
+  const formRef = useRef(null);
   const [recipients, setRecipients] = useState([]);
   const [deliverymen, setDeliverymen] = useState([]);
+
+  const initialData = {
+    recipient_id: 0,
+    deliveryman_id: 0,
+    product: '',
+  };
 
   const loadRecipients = useCallback(async (name) => {
     const response = await api.get('/recipients', {
@@ -55,21 +62,34 @@ export default function Register() {
     }
 
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadDeliverymen, loadRecipients]);
 
   function handleBack() {
     history.push('/deliveries');
   }
 
-  function handleSave() {}
+  async function handleSubmit(data, { reset }) {
+    const { recipient_id, deliveryman_id, product } = data;
+
+    await api.post('/deliveries', {
+      recipient_id,
+      deliveryman_id,
+      product,
+    });
+
+    reset();
+  }
 
   return (
     <Container>
-      <RegisterHeader handleBack={handleBack} handleSave={handleSave}>
+      <RegisterHeader
+        handleBack={handleBack}
+        handleSave={() => formRef.current.submitForm()}
+      >
         Cadastro de Encomendas
       </RegisterHeader>
-      <Form>
+
+      <Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
         <SelectContainer>
           <AsyncSelect
             name="recipient_id"
@@ -80,7 +100,7 @@ export default function Register() {
             noOptionsMessage={() => 'Nenhum Destinatário encontrado'}
           />
           <AsyncSelect
-            name="deleiveryman_id"
+            name="deliveryman_id"
             label="Entregador"
             placeholder="Selecione um Entregador"
             defaultOptions={deliverymen}
@@ -89,7 +109,12 @@ export default function Register() {
           />
         </SelectContainer>
 
-        <Input className="product" type="text" name="product" label="Produto" />
+        <Input
+          type="text"
+          name="product"
+          label="Produto"
+          placeholder="Produto a ser entregue"
+        />
       </Form>
     </Container>
   );

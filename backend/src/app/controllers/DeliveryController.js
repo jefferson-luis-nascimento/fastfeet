@@ -105,7 +105,7 @@ class DeliveryController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { recipient_id, deliveryman_id, signature_id, product } = req.body;
+    const { recipient_id, deliveryman_id, product } = req.body;
 
     const recipient = await Recipient.findByPk(recipient_id);
 
@@ -160,7 +160,7 @@ class DeliveryController {
       return res.status(404).json({ error: 'Delivery not found' });
     }
 
-    const { recipient_id, deliveryman_id, signature_id, product } = req.body;
+    const { recipient_id, deliveryman_id, product } = req.body;
 
     const recipient = await Recipient.findByPk(recipient_id);
 
@@ -180,7 +180,6 @@ class DeliveryController {
       id: delivery_id,
       recipient_id,
       deliveryman_id,
-      signature_id,
       product,
       created_at,
     });

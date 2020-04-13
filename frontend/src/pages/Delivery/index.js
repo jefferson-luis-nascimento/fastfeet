@@ -19,6 +19,7 @@ export default function Delivery() {
   const [data, setData] = useState(null);
   const [paging, setPaging] = useState({ currentPage: 1, totalPages: 1 });
   const [deliveryItem, setDeliveryItem] = useState(null);
+  const [filter, setFilter] = useState('');
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -33,10 +34,10 @@ export default function Delivery() {
   }, []);
 
   const loadDeliveries = useCallback(
-    (page) => {
+    (page, product) => {
       async function load() {
         const response = await api.get('/deliveries', {
-          params: { page },
+          params: { page, q: product },
         });
 
         setPaging({
@@ -103,8 +104,11 @@ export default function Delivery() {
 
   useEffect(() => {
     loadDeliveries(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    loadDeliveries(paging.currentPage, filter);
+  }, [filter]);
 
   function handleRegister() {
     history.push('/deliveries/register');
@@ -170,6 +174,8 @@ export default function Delivery() {
       <Container>
         <PageTitle>Gerenciando Encomendas</PageTitle>
         <Filter
+          filter={filter}
+          setFilter={setFilter}
           placeholder="Buscar por encomendas"
           handleRegister={handleRegister}
         />

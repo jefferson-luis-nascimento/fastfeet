@@ -71,8 +71,6 @@ export default function Register({ match }) {
           product: response.data.product,
         });
 
-        console.tron.log(formRef.current.getData(), response.data);
-
         formRef.current.setFieldValue('recipient_id', {
           value: response.data.recipient_id,
           label: response.data.recipient.name,
@@ -81,8 +79,6 @@ export default function Register({ match }) {
           value: response.data.deliveryman_id,
           label: response.data.deliveryman.name,
         });
-
-        console.tron.log(formRef.current.getData(), response.data);
       }
     }
 
@@ -94,8 +90,6 @@ export default function Register({ match }) {
   }
 
   async function handleSubmit(data, { reset }) {
-    console.tron.log(formRef.current.getData(), data);
-
     formRef.current.setErrors({});
 
     try {

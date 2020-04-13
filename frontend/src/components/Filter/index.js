@@ -4,12 +4,24 @@ import { MdAdd, MdSearch } from 'react-icons/md';
 
 import { Container } from './styles';
 
-export default function Filter({ placeholder, handleRegister }) {
+export default function Filter({
+  filter,
+  setFilter,
+  placeholder,
+  handleRegister,
+}) {
   return (
     <Container>
       <div>
         <MdSearch size={24} color="#999" />
-        <input type="text" name="filer" id="filter" placeholder={placeholder} />
+        <input
+          type="text"
+          name="filer"
+          id="filter"
+          placeholder={placeholder}
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        />
       </div>
       <button type="button" onClick={handleRegister}>
         <MdAdd size={24} color="#fff" />
@@ -20,6 +32,8 @@ export default function Filter({ placeholder, handleRegister }) {
 }
 
 Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   handleRegister: PropTypes.func.isRequired,
 };

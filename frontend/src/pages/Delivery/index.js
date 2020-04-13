@@ -131,7 +131,7 @@ export default function Delivery() {
   }
 
   function handleEdit(id) {
-    console.tron.log(id);
+    history.push(`/deliveries/register/${id}`);
   }
 
   async function handleRemove(id) {

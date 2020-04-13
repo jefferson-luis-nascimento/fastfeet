@@ -7,7 +7,7 @@ import { Container } from './styles';
 import Label from '~/components/Form/Label';
 import Error from '~/components/Form/Error';
 
-export default function AsyncSelect({ name, label, defaultOptions, ...rest }) {
+export default function AsyncSelect({ name, label, ...rest }) {
   const [inputValue, setInputValue] = useState({});
   const selectRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
@@ -18,10 +18,10 @@ export default function AsyncSelect({ name, label, defaultOptions, ...rest }) {
       ref: selectRef.current,
       path: 'select.state.value',
       setValue(ref, value) {
-        setInputValue(value);
+        ref.select.select.setValue(value);
       },
-      clearValue() {
-        setInputValue(null);
+      clearValue(ref) {
+        ref.select.select.clearValue();
       },
       getValue: (ref) => {
         if (rest.isMulti) {
@@ -47,7 +47,6 @@ export default function AsyncSelect({ name, label, defaultOptions, ...rest }) {
         isClearable
         cacheOptions
         defaultValue={defaultValue}
-        defaultOptions={defaultOptions}
         onChange={(selected) => setInputValue(selected)}
         value={inputValue}
         ref={selectRef}

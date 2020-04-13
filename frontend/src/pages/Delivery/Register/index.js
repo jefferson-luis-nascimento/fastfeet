@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 
 import { SelectContainer } from './styles';
 
@@ -11,16 +13,12 @@ import Form from '~/components/Form';
 import api from '~/services/api';
 import history from '~/services/history';
 
-export default function Register() {
+export default function Register({ match }) {
   const formRef = useRef(null);
   const [recipients, setRecipients] = useState([]);
   const [deliverymen, setDeliverymen] = useState([]);
 
-  const initialData = {
-    recipient_id: 0,
-    deliveryman_id: 0,
-    product: '',
-  };
+  const { id } = match.params;
 
   const loadRecipients = useCallback(async (name) => {
     const response = await api.get('/recipients', {
@@ -62,22 +60,99 @@ export default function Register() {
     }
 
     load();
-  }, [loadDeliverymen, loadRecipients]);
+
+    async function loadDelivery() {
+      if (id) {
+        const response = await api.get(`/deliveries/${id}`);
+
+        formRef.current.setData({
+          recipient_id: response.data.recipient_id,
+          deliveryman_id: response.data.deliveryman_id,
+          product: response.data.product,
+        });
+
+        console.tron.log(formRef.current.getData(), response.data);
+
+        formRef.current.setFieldValue('recipient_id', {
+          value: response.data.recipient_id,
+          label: response.data.recipient.name,
+        });
+        formRef.current.setFieldValue('deliveryman_id', {
+          value: response.data.deliveryman_id,
+          label: response.data.deliveryman.name,
+        });
+
+        console.tron.log(formRef.current.getData(), response.data);
+      }
+    }
+
+    loadDelivery();
+  }, [id, loadDeliverymen, loadRecipients]);
 
   function handleBack() {
     history.push('/deliveries');
   }
 
   async function handleSubmit(data, { reset }) {
-    const { recipient_id, deliveryman_id, product } = data;
+    console.tron.log(formRef.current.getData(), data);
 
-    await api.post('/deliveries', {
-      recipient_id,
-      deliveryman_id,
-      product,
-    });
+    formRef.current.setErrors({});
 
-    reset();
+    try {
+      const schema = Yup.object().shape({
+        product: Yup.string().required('O nome do produto é obrigatório'),
+        recipient_id: Yup.string().required('O destinatário é obrigatório'),
+        deliveryman_id: Yup.string().required('O entregador é obrigatório'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      const { recipient_id, deliveryman_id, product } = data;
+
+      if (id) {
+        try {
+          await api.put(`/deliveries/${id}`, {
+            recipient_id,
+            deliveryman_id,
+            product,
+          });
+
+          toast.success('Entrega alterada com sucesso!');
+
+          reset();
+
+          history.push('/deliveries');
+        } catch (error) {
+          toast.error('Falha ao alterar a entrega!');
+        }
+      } else {
+        try {
+          await api.post('/deliveries', {
+            recipient_id,
+            deliveryman_id,
+            product,
+          });
+
+          toast.success('Entrega cadastrada com sucesso!');
+
+          reset();
+        } catch (error) {
+          toast.error('Falha ao alterar a entrega!');
+        }
+      }
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errorMessages = {};
+
+        err.inner.forEach((error) => {
+          errorMessages[error.path] = error.message;
+        });
+
+        formRef.current.setErrors(errorMessages);
+      }
+    }
   }
 
   return (
@@ -89,9 +164,10 @@ export default function Register() {
         Cadastro de Encomendas
       </RegisterHeader>
 
-      <Form initialData={initialData} ref={formRef} onSubmit={handleSubmit}>
+      <Form ref={formRef} onSubmit={handleSubmit}>
         <SelectContainer>
           <AsyncSelect
+            type="text"
             name="recipient_id"
             label="Destinatário"
             placeholder="Selecione um Destinário"
@@ -100,6 +176,7 @@ export default function Register() {
             noOptionsMessage={() => 'Nenhum Destinatário encontrado'}
           />
           <AsyncSelect
+            type="text"
             name="deliveryman_id"
             label="Entregador"
             placeholder="Selecione um Entregador"

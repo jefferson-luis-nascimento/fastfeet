@@ -54,7 +54,10 @@ export default function Register({ match }) {
           .min(2, 'O estado deve possuir 2 caracteres')
           .max(2, 'O estado deve possuir 2 caracteres')
           .required('O estado é obrigatório'),
-        zip_code: Yup.string().required('O CEP é obrigatório'),
+        zip_code: Yup.string()
+          .required('O CEP é obrigatório')
+          .min(8, 'CEP deve possuir 8 caracters')
+          .max(8, 'CEP deve possuir 8 caracters'),
       });
 
       await schema.validate(data, {

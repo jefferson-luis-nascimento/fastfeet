@@ -51,7 +51,7 @@ export default function AvatarInput({ name, ...rest }) {
         if (file) {
           return file.id;
         }
-        return null;
+        return 0;
       },
     });
   }, [file, preview, fieldName, inputRef, registerField]);

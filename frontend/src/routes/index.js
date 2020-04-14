@@ -9,6 +9,7 @@ import Dashboard from '~/pages/Dashboard';
 import Delivery from '~/pages/Delivery';
 import DeliveryRegister from '~/pages/Delivery/Register';
 import Deliveryman from '~/pages/Deliveryman';
+import DeliverymanRegister from '~/pages/Deliveryman/Register';
 import Recipient from '~/pages/Recipient';
 import Problem from '~/pages/Problem';
 
@@ -31,7 +32,19 @@ export default function Routes() {
         component={DeliveryRegister}
         isPrivate
       />
-      <Route path="/deliverymen" component={Deliveryman} isPrivate />
+      <Route path="/deliverymen" exact component={Deliveryman} isPrivate />
+      <Route
+        path="/deliverymen/register"
+        exact
+        component={DeliverymanRegister}
+        isPrivate
+      />
+      <Route
+        path="/deliverymen/register/:id"
+        exact
+        component={DeliverymanRegister}
+        isPrivate
+      />
       <Route path="/recipients" component={Recipient} isPrivate />
       <Route path="/problems" component={Problem} isPrivate />
     </Switch>

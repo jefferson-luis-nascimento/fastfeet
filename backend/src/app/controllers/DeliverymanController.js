@@ -9,12 +9,12 @@ class DeliverymanController {
     const { deliveryman_id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(deliveryman_id, {
-      attributes: ['id', 'name', 'email', 'avatar_id'],
+      attributes: ['id', 'name', 'email'],
       include: [
         {
           model: File,
           as: 'avatar',
-          attributes: ['name', 'path', 'url'],
+          attributes: ['id', 'name', 'path', 'url'],
         },
       ],
     });
@@ -43,12 +43,12 @@ class DeliverymanController {
       where,
       limit,
       offset: (page - 1) * limit,
-      attributes: ['id', 'name', 'email', 'avatar_id'],
+      attributes: ['id', 'name', 'email'],
       include: [
         {
           model: File,
           as: 'avatar',
-          attributes: ['name', 'path', 'url'],
+          attributes: ['id', 'name', 'path', 'url'],
         },
       ],
     });
@@ -85,7 +85,7 @@ class DeliverymanController {
 
     const { id, name } = await Deliveryman.create(req.body);
 
-    return res.json({ id, name, email, avatar_id });
+    return res.json({ id, name, email, avatar: avatarExists });
   }
 
   async update(req, res) {
@@ -118,6 +118,14 @@ class DeliverymanController {
       }
     }
 
+    const { avatar_id } = req.body;
+
+    const avatarExists = await File.findByPk(avatar_id);
+
+    if (!avatarExists) {
+      res.status(404).json({ error: 'Avatar does not exist.' });
+    }
+
     const deliverymanUpdated = await deliveryman.update(req.body);
 
     return res.json(deliverymanUpdated);
@@ -131,9 +139,14 @@ class DeliverymanController {
       res.status(404).json({ error: 'Deliveryman not found' });
     }
 
-    await deliveryman.destroy();
-
-    return res.json({ ok: true });
+    try {
+      await deliveryman.destroy();
+      return res.json({ ok: true });
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ error: 'Deliveryman still have deliveries' });
+    }
   }
 }
 

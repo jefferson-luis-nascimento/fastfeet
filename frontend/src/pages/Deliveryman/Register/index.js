@@ -49,7 +49,9 @@ export default function Register({ match }) {
         email: Yup.string()
           .email('E-mail está inválido')
           .required('O destinatário é obrigatório'),
-        avatar: Yup.number().required('Selecione uma foto para seu entregador'),
+        avatar: Yup.number()
+          .min(1, 'Selecione uma foto para seu entregador')
+          .required('Selecione uma foto para seu entregador'),
       });
 
       await schema.validate(data, {

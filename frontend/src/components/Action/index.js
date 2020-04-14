@@ -38,7 +38,7 @@ export default function Action({ id, actions, handleAction }) {
             onClick={() => handleActionSelected(action.name)}
           >
             <>{renderIcon(action.icon)}</>
-            <span>{action.name}</span>
+            <span>{action.label ? action.label : action.name}</span>
           </ActionItem>
         ))}
       </ActionList>

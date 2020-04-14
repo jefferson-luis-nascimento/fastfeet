@@ -24,13 +24,14 @@ export const Badge = styled.button`
 `;
 
 export const ActionList = styled.div`
+  flex: 1;
   display: ${(props) => {
     return props.visible ? 'block' : 'none';
   }};
   z-index: 1;
   position: absolute;
-  width: 140px;
-  left: calc(50% - 70px);
+  min-width: 250x;
+  left: calc(50% - 30px);
   top: calc(100% + 10px);
   background: #fff;
   border: 1px solid #eeefff;

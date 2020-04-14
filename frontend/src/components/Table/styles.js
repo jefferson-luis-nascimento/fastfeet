@@ -14,8 +14,8 @@ export const TableList = styled.table`
     padding: 5px 10px;
   }
 
-  th .actions {
-    text-align: right;
+  th.actions {
+    text-align: right !important;
   }
 
   td {
@@ -31,8 +31,11 @@ export const TableList = styled.table`
     }
   }
 
-  td .actions {
-    text-align: end;
+  td.actions {
+    > div {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   td:first-child {

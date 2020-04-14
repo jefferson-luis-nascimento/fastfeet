@@ -9,7 +9,7 @@ class DeliverymanController {
     const { deliveryman_id } = req.params;
 
     const deliveryman = await Deliveryman.findByPk(deliveryman_id, {
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
           model: File,
@@ -43,7 +43,7 @@ class DeliverymanController {
       where,
       limit,
       offset: (page - 1) * limit,
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
           model: File,
@@ -85,7 +85,7 @@ class DeliverymanController {
 
     const { id, name } = await Deliveryman.create(req.body);
 
-    return res.json({ id, name, email, avatar: avatarExists });
+    return res.json({ id, name, email, avatar_id, avatar: avatarExists });
   }
 
   async update(req, res) {

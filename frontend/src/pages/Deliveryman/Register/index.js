@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import AvatarInput from '~/components/AvatarInput';
 import Container from '~/components/Container';
 import RegisterHeader from '~/components/RegisterHeader';
 import Input from '~/components/Form/Input';
@@ -12,7 +13,6 @@ import history from '~/services/history';
 
 export default function Register({ match }) {
   const formRef = useRef(null);
-  const [deliveryman, setDeliveryman] = useState(null);
 
   const { id } = match.params;
 
@@ -25,8 +25,9 @@ export default function Register({ match }) {
           name: response.data.name,
           email: response.data.email,
           avatar_id: response.data.avatar_id,
-          avatar: response.data.avatar,
         });
+
+        formRef.current.setFieldValue('avatar', response.data.avatar);
       }
     }
 
@@ -38,6 +39,8 @@ export default function Register({ match }) {
   }
 
   async function handleSubmit(data, { reset }) {
+    console.tron.log(data);
+
     formRef.current.setErrors({});
 
     try {
@@ -46,14 +49,14 @@ export default function Register({ match }) {
         email: Yup.string()
           .email('E-mail está inválido')
           .required('O destinatário é obrigatório'),
-        avatar_id: Yup.number().required,
+        avatar: Yup.number().required('Selecione uma foto para seu entregador'),
       });
 
       await schema.validate(data, {
         abortEarly: false,
       });
 
-      const { name, email, avatar_id } = data;
+      const { name, email, avatar: avatar_id } = data;
 
       if (id) {
         try {
@@ -67,7 +70,7 @@ export default function Register({ match }) {
 
           reset();
 
-          history.push('/deliveries');
+          history.push('/deliverymen');
         } catch (error) {
           toast.error('Falha ao alterar a entrega!');
         }
@@ -105,10 +108,11 @@ export default function Register({ match }) {
         handleBack={handleBack}
         handleSave={() => formRef.current.submitForm()}
       >
-        Cadastro de Encomendas
+        Cadastro de Entregadores
       </RegisterHeader>
 
       <Form ref={formRef} onSubmit={handleSubmit}>
+        <AvatarInput name="avatar" />
         <Input type="text" name="name" label="Nome" placeholder="John Doe" />
         <Input
           type="email"

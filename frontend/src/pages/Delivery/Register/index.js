@@ -27,7 +27,7 @@ export default function Register({ match }) {
       },
     });
 
-    const options = response.data.map((recipient) => ({
+    const options = response.data.rows.map((recipient) => ({
       value: recipient.id,
       label: recipient.name,
     }));
@@ -44,7 +44,7 @@ export default function Register({ match }) {
       },
     });
 
-    const options = response.data.map((deliveryman) => ({
+    const options = response.data.rows.map((deliveryman) => ({
       value: deliveryman.id,
       label: deliveryman.name,
     }));

@@ -127,11 +127,11 @@ export default function Deliveryman() {
 
   return (
     <Container>
-      <PageTitle>Gerenciando Encomendas</PageTitle>
+      <PageTitle>Gerenciando Entregadores</PageTitle>
       <Filter
         filter={filter}
         setFilter={setFilter}
-        placeholder="Buscar por encomendas"
+        placeholder="Buscar por entregador"
         handleRegister={handleRegister}
       />
       <Table

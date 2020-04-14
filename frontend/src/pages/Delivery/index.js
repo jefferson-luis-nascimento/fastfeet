@@ -56,6 +56,22 @@ export default function Delivery() {
             { name: 'Estado' },
             { name: 'Status', type: 'status' },
           ],
+          items: response.data.rows.map((delivery) => {
+            return {
+              id: delivery.id,
+              recipient: delivery.recipient.name,
+              index: delivery.deliveryman_id,
+              deliveryman: {
+                name: delivery.deliveryman.name,
+                url: delivery.deliveryman.avatar
+                  ? delivery.deliveryman.avatar.url
+                  : null,
+              },
+              city: delivery.recipient.city,
+              state: delivery.recipient.state,
+              status: delivery.status || 'Pendente',
+            };
+          }),
           actions: [
             {
               name: 'Visualizar',
@@ -83,17 +99,6 @@ export default function Delivery() {
               },
             },
           ],
-          items: response.data.rows.map((delivery) => {
-            return {
-              id: delivery.id,
-              recipient: delivery.recipient.name,
-              index: delivery.deliveryman_id,
-              deliveryman: delivery.deliveryman.name,
-              city: delivery.recipient.city,
-              state: delivery.recipient.state,
-              status: delivery.status || 'Pendente',
-            };
-          }),
         });
       }
 

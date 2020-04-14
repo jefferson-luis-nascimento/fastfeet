@@ -39,7 +39,7 @@ class DeliverymanController {
       };
     }
 
-    const deliverymen = await Deliveryman.findAll({
+    const deliverymen = await Deliveryman.findAndCountAll({
       where,
       limit,
       offset: (page - 1) * limit,

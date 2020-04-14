@@ -48,7 +48,7 @@ class RecipientController {
       };
     }
 
-    const recipients = await Recipient.findAll({
+    const recipients = await Recipient.findAndCountAll({
       where,
       limit,
       offset: (page - 1) * limit,

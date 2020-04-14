@@ -8,7 +8,7 @@ class DeliveryProblemController {
     const { page = 1, limit = 20 } = req.query;
     const { delivery_id } = req.params;
 
-    const deliveryProblems = await DeliveryProblem.findAll({
+    const deliveryProblems = await DeliveryProblem.findAndCountAll({
       where: { delivery_id },
       limit,
       offset: (page - 1) * limit,

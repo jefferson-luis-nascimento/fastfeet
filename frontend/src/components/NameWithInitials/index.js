@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Initials, Name } from './styles';
+import { Container, Name } from './styles';
 
-import randomColor from '~/util/randomColor';
+import Avatar from '~/components/Avatar';
 
-export default function NameWithInitials({ children, index }) {
-  const words = children.split(' ');
-
-  const initials = `${words[0].substring(0, 1)}${
-    words.length > 1 ? words[words.length - 1].substring(0, 1) : ''
-  }`;
-
-  const color = randomColor(index);
-
+export default function NameWithInitials({ children, index, avatar_url }) {
   return (
     <Container>
-      <Initials color={color}>{initials}</Initials>
+      <Avatar url={avatar_url} index={index} defaultText={children} />
       <Name>{children}</Name>
     </Container>
   );
@@ -25,4 +17,9 @@ export default function NameWithInitials({ children, index }) {
 NameWithInitials.propTypes = {
   children: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  avatar_url: PropTypes.string,
+};
+
+NameWithInitials.defaultProps = {
+  avatar_url: null,
 };

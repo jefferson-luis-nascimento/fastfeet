@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Container, TableList } from './styles';
 import Action from '~/components/Action';
+import Avatar from '~/components/Avatar';
 import NameWithInitials from '~/components/NameWithInitials';
 import Status from '~/components/Status';
 import Paging from '~/components/Paging';
@@ -44,8 +45,20 @@ export default function Table({ data, paging, loadItems, handleAction }) {
         return <td key={item.value}>#{item.value}</td>;
       case 'initials':
         return (
-          <td key={item.value}>
-            <NameWithInitials index={item.index}>{item.value}</NameWithInitials>
+          <td key={item.value.name}>
+            <NameWithInitials index={item.index} avatar_url={item.value.url}>
+              {item.value.name}
+            </NameWithInitials>
+          </td>
+        );
+      case 'image':
+        return (
+          <td className="" key={item.value.url}>
+            <Avatar
+              url={item.value.url}
+              index={item.index}
+              defaultText={item.value.defaultValue}
+            />
           </td>
         );
       case 'status':

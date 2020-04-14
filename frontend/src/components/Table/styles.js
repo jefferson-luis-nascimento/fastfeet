@@ -24,6 +24,11 @@ export const TableList = styled.table`
     text-align: left;
     line-height: 20px;
     padding: 5px 10px;
+
+    > div {
+      display: flex;
+      justify-content: flex-start;
+    }
   }
 
   td .actions {

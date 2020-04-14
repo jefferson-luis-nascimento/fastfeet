@@ -21,6 +21,7 @@ class RecipientController {
       city,
       state,
       zip_code,
+      fullAddress,
     } = recipient;
 
     return res.json({
@@ -32,6 +33,7 @@ class RecipientController {
       city,
       state,
       zip_code,
+      fullAddress,
     });
   }
 
@@ -61,6 +63,7 @@ class RecipientController {
         'city',
         'state',
         'zip_code',
+        'fullAddress',
       ],
     });
 

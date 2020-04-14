@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -39,8 +40,6 @@ export default function Register({ match }) {
   }
 
   async function handleSubmit(data, { reset }) {
-    console.tron.log(data);
-
     formRef.current.setErrors({});
 
     try {
@@ -74,7 +73,7 @@ export default function Register({ match }) {
 
           history.push('/deliverymen');
         } catch (error) {
-          toast.error('Falha ao alterar a entrega!');
+          toast.error('Falha ao alterar o entregador!');
         }
       } else {
         try {
@@ -88,7 +87,7 @@ export default function Register({ match }) {
 
           reset();
         } catch (error) {
-          toast.error('Falha ao alterar o entregador!');
+          toast.error('Falha ao gravar o entregador!');
         }
       }
     } catch (err) {
@@ -126,3 +125,11 @@ export default function Register({ match }) {
     </Container>
   );
 }
+
+Register.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

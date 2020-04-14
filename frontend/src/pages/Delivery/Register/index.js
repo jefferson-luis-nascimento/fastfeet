@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -133,7 +134,7 @@ export default function Register({ match }) {
 
           reset();
         } catch (error) {
-          toast.error('Falha ao alterar a entrega!');
+          toast.error('Falha ao gravar a entrega!');
         }
       }
     } catch (err) {
@@ -190,3 +191,11 @@ export default function Register({ match }) {
     </Container>
   );
 }
+
+Register.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

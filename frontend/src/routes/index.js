@@ -11,6 +11,7 @@ import DeliveryRegister from '~/pages/Delivery/Register';
 import Deliveryman from '~/pages/Deliveryman';
 import DeliverymanRegister from '~/pages/Deliveryman/Register';
 import Recipient from '~/pages/Recipient';
+import RecipientRegister from '~/pages/Recipient/Register';
 import Problem from '~/pages/Problem';
 
 export default function Routes() {
@@ -45,7 +46,19 @@ export default function Routes() {
         component={DeliverymanRegister}
         isPrivate
       />
-      <Route path="/recipients" component={Recipient} isPrivate />
+      <Route path="/recipients" exact component={Recipient} isPrivate />
+      <Route
+        path="/recipients/register"
+        exact
+        component={RecipientRegister}
+        isPrivate
+      />
+      <Route
+        path="/recipients/register/:id"
+        exact
+        component={RecipientRegister}
+        isPrivate
+      />
       <Route path="/problems" component={Problem} isPrivate />
     </Switch>
   );

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import { AddressContainer, CityContainer } from './styles';
+
 import Container from '~/components/Container';
 import RegisterHeader from '~/components/RegisterHeader';
 import Input from '~/components/Form/Input';
@@ -137,16 +139,25 @@ export default function Register({ match }) {
 
       <Form ref={formRef} onSubmit={handleSubmit}>
         <Input name="name" label="Nome" placeholder="Nome do destinatário" />
-        <Input name="address" label="Rua" placeholder="Rua Exemplo" />
-        <Input name="number" label="Número" placeholder="Número" />
-        <Input
-          name="address_complement"
-          label="Complemento"
-          placeholder="Complemento se tiver"
-        />
-        <Input name="city" label="Cidade" placeholder="Nome da cidade" />
-        <Input name="state" label="Estado" placeholder="Sigla do estado" />
-        <Input name="zip_code" label="CEP" placeholder="CEP da rua" />
+        <AddressContainer>
+          <Input
+            className="address"
+            name="address"
+            label="Rua"
+            placeholder="Rua Exemplo"
+          />
+          <Input name="number" label="Número" placeholder="Número" />
+          <Input
+            name="address_complement"
+            label="Complemento"
+            placeholder="Complemento se tiver"
+          />
+        </AddressContainer>
+        <CityContainer>
+          <Input name="city" label="Cidade" placeholder="Nome da cidade" />
+          <Input name="state" label="Estado" placeholder="Sigla do estado" />
+          <Input name="zip_code" label="CEP" placeholder="CEP da rua" />
+        </CityContainer>
       </Form>
     </Container>
   );

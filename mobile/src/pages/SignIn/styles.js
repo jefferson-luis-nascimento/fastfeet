@@ -13,9 +13,10 @@ export const Image = styled.Image`
 `;
 
 export const TextInput = styled.TextInput`
+  height: 46px;
   background: #fff;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 0 20px;
   align-self: stretch;
   margin: 30px 0;
   border-radius: 4px;

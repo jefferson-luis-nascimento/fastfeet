@@ -13,12 +13,14 @@ import DeliverymanController from './app/controllers/DeliverymanController';
 import DeliveryController from './app/controllers/DeliveryController';
 import StartEndDeliveryController from './app/controllers/StartEndDeliveryController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
+import DeliverymanSessionController from './app/controllers/DeliverymanSessionController';
 
 const routes = new Router();
 const uploads = multer(multerConfig);
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
+routes.post('/deliverymen/sessions', DeliverymanSessionController.store);
 
 routes.use(authMiddlware);
 

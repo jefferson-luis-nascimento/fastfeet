@@ -26,7 +26,7 @@ export default function createRouter(isSigned = false) {
       <Stack.Screen
         name="SignIn"
         component={SignIn}
-        options={{ title: 'SignIn' }}
+        options={{ title: '', headerTransparent: true }}
       />
     </Stack.Navigator>
   ) : (

@@ -1,7 +1,7 @@
-import React from 'react';
-
-import Routes from './routes';
+import createRouter from './routes';
 
 export default function src() {
-  return <Routes isSigned={false} />;
+  const signed = false;
+
+  return createRouter(signed);
 }

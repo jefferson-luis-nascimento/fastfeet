@@ -1,8 +1,20 @@
 import React from 'react';
-import { View } from 'react-native';
+import SubmitButton from '~/components/Button';
 
-// import { Container } from './styles';
+import { Container, Image, TextInput } from './styles';
+
+import logoWhite from '~/assets/fastfeet-logo-white.png';
 
 export default function SignIn() {
-  return <View />;
+  return (
+    <Container>
+      <Image source={logoWhite} />
+      <TextInput
+        keyboardType="number-pad"
+        secureTextEntry
+        placeholder="Informe seu ID de cadastro"
+      />
+      <SubmitButton>Entrar no Sistema</SubmitButton>
+    </Container>
+  );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,6 +11,9 @@ import Profile from '~/pages/Profile';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
+
+const activeTintLabelColor = '#7d40e7';
+const inactiveTintLabelColor = '#999';
 
 export default function createRouter(isSigned = false) {
   return !isSigned ? (
@@ -34,9 +38,6 @@ export default function createRouter(isSigned = false) {
       tabOptions={{
         activeTintColor: '#7d40e7',
         inactiveTintColor: '#999',
-        style: {
-          backgroundColor: '#fff',
-        },
         keyboardHidesTabBar: true,
       }}
     >
@@ -46,7 +47,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (
-            <Icon name="list" size={20} color={color} />
+            <Icon name="list" size={30} color={color} />
           ),
         }}
       />
@@ -56,7 +57,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Meu Perfil',
           tabBarIcon: ({ color }) => (
-            <Icon name="account-circle" size={20} color={color} />
+            <Icon name="account-circle" size={30} color={color} />
           ),
         }}
       />

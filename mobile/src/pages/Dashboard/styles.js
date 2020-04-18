@@ -59,4 +59,6 @@ export const RadioButtonText = styled.Text`
   color: ${(props) => (props.checked ? '#7d40e7' : '#ddd')};
 `;
 
-export const List = styled.FlatList``;
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})``;

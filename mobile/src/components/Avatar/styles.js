@@ -7,19 +7,6 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Text = styled.Text`
-  align-self: center;
-
-  height: 80px;
-  width: 80px;
-  border-radius: 40px;
-
-  font-size: 35px;
-  background: #f4effc;
-  color: #a28fd0;
-  padding: 15px;
-`;
-
 export const Image = styled.Image`
   width: 80px;
   height: 80px;

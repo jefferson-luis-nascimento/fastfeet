@@ -10,10 +10,15 @@ import File from '../models/File';
 const attributes = {
   attributes: [
     'id',
+    'product',
     'recipient_id',
     'deliveryman_id',
     'signature_id',
     'created_at',
+    'canceled_at',
+    'start_date',
+    'end_date',
+    'status',
   ],
   include: [
     {
@@ -22,6 +27,7 @@ const attributes = {
       attributes: [
         'name',
         'address',
+        'fullAddress',
         'number',
         'address_complement',
         'city',
@@ -47,6 +53,7 @@ const attributes = {
       attributes: ['name', 'path', 'url'],
     },
   ],
+  order: ['id'],
 };
 
 class StartEndDeliveryController {
@@ -63,7 +70,7 @@ class StartEndDeliveryController {
 
     const deliveries = await Delivery.findAll({
       where: {
-        end_date: null,
+        deliveryman_id,
         canceled_at: null,
       },
       limit,

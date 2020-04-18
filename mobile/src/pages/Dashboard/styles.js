@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
-
-import Button from '~/components/Button';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -21,13 +20,14 @@ export const WelcomeText = styled.Text`
   color: #999;
 `;
 export const NameText = styled.Text`
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   color: #444;
 `;
-export const ExitButton = styled(Button)`
+export const ExitButton = styled(RectButton)`
   background: #fff;
   align-self: center;
+  padding: 10px;
 `;
 
 export const ListHeader = styled.View`

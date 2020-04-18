@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { StatusBar } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { StatusBar, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   Container,
@@ -19,14 +20,17 @@ import Radio from '~/components/Radio';
 import ListItem from '~/components/ListItem';
 
 import api from '~/services/api';
+import { signOut } from '~/store/modules/auth/actions';
 
 const exitIcon = {
   name: 'exit-to-app',
-  size: 40,
+  size: 50,
   color: '#e74040',
 };
 
 export default function Dashboard() {
+  const dispatch = useDispatch();
+
   const { id, name, avatar } = useSelector((state) => state.user.profile);
 
   /* const [checkedPending, setCheckedPending] = useState(true);
@@ -49,6 +53,27 @@ export default function Dashboard() {
     loadDeliveries();
   }, [id]);
 
+  function handleSignOut() {
+    Alert.alert(
+      'FastFeet',
+      'Deseja realmente sair do sitema?',
+      [
+        {
+          text: 'Não',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'Sim',
+          onPress: () => {
+            dispatch(signOut());
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
   return (
     <Container>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -62,7 +87,14 @@ export default function Dashboard() {
           <WelcomeText>Bem vindo de volta,</WelcomeText>
           <NameText>{name}</NameText>
         </NameContainer>
-        <ExitButton icon={exitIcon} />
+        <ExitButton>
+          <Icon
+            onPress={handleSignOut}
+            name={exitIcon.name}
+            size={exitIcon.size}
+            color={exitIcon.color}
+          />
+        </ExitButton>
       </Header>
 
       <ListHeader>

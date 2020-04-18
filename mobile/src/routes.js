@@ -31,9 +31,18 @@ export default function createRouter(isSigned = false) {
     </Stack.Navigator>
   ) : (
     <Tabs.Navigator
-      tabOptions={{
+      /* tabOptions={{
         activeTintColor: '#7d40e7',
         inactiveTintColor: '#999',
+        keyboardHidesTabBar: true,
+      }} */
+
+      tabBarOptions={{
+        activeTintColor: '#7d40e7',
+        inactiveTintColor: '#999',
+        style: {
+          backgroundColor: '#fff',
+        },
         keyboardHidesTabBar: true,
       }}
     >

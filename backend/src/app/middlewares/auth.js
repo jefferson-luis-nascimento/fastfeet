@@ -18,11 +18,8 @@ export default async (req, res, next) => {
 
     const { admin } = decoded;
 
-    if (!admin) {
-      return res.status(401).json({ error: 'User is not a administrator.' });
-    }
-
     req.userId = decoded.id;
+    req.admin = admin;
 
     return next();
   } catch (error) {

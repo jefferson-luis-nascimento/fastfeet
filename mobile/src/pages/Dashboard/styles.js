@@ -33,15 +33,12 @@ export const ExitButton = styled(Button)`
 export const ListHeader = styled.View`
   margin-top: 20px;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
 `;
-export const ListHeaderTitle = styled.View`
+export const ListHeaderTitle = styled.Text`
   font-size: 24px;
   font-weight: bold;
   color: #444;
 `;
-export const RadioContainer = styled.View``;
-export const RadioButton = styled(Button)`
-  background: #fff;
-  color: ${(props) => (props.checked ? '#7d40e7' : '#999')};
-`;
+
+export const List = styled.FlatList``;

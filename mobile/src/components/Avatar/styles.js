@@ -1,16 +1,39 @@
 import styled from 'styled-components/native';
+import { lighten } from 'polished';
 
 export const Container = styled.View`
   margin-right: 10px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Text = styled.Text`
-  height: 100px;
-  width: 100px;
-  border-radius: 50px;
+  align-self: center;
 
-  font-size: 60px;
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
+
+  font-size: 35px;
   background: #f4effc;
   color: #a28fd0;
-  padding: 10px;
+  padding: 15px;
+`;
+
+export const Image = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+`;
+
+export const Initials = styled.Text`
+  text-align: center;
+  text-align-vertical: center;
+  background: ${(props) => lighten(0.25, props.color)};
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  color: ${(props) => props.color};
+  margin: 0 5px;
+  font-size: 35px;
 `;

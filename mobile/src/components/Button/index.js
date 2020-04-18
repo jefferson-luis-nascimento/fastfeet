@@ -16,11 +16,7 @@ export default function Button({ children, loading, icon, ...rest }) {
 
   return (
     <Container {...rest}>
-      {loading ? (
-        <ActivityIndicator size="small" color="#fff" />
-      ) : (
-        <Text>{children}</Text>
-      )}
+      {loading ? <ActivityIndicator size="small" color="#fff" /> : render()}
     </Container>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -11,9 +10,6 @@ import Profile from '~/pages/Profile';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
-
-const activeTintLabelColor = '#7d40e7';
-const inactiveTintLabelColor = '#999';
 
 export default function createRouter(isSigned = false) {
   return !isSigned ? (
@@ -47,7 +43,7 @@ export default function createRouter(isSigned = false) {
         options={{
           tabBarLabel: 'Entregas',
           tabBarIcon: ({ color }) => (
-            <Icon name="list" size={30} color={color} />
+            <Icon name="reorder" size={30} color={color} />
           ),
         }}
       />

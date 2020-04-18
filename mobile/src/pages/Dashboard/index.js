@@ -13,10 +13,12 @@ import {
   ListHeader,
   ListHeaderTitle,
   List,
+  RadioContainer,
+  RadioButton,
+  RadioButtonText,
 } from './styles';
 
 import Avatar from '~/components/Avatar';
-import Radio from '~/components/Radio';
 import ListItem from '~/components/ListItem';
 
 import api from '~/services/api';
@@ -33,25 +35,30 @@ export default function Dashboard() {
 
   const { id, name, avatar } = useSelector((state) => state.user.profile);
 
-  /* const [checkedPending, setCheckedPending] = useState(true);
+  const [checkedPending, setCheckedPending] = useState(true);
   const [checkedDelivered, setCheckedDelivered] = useState(false);
+  const [status, setStatus] = useState('Pendentes');
 
   function handleChecked() {
     setCheckedPending(!checkedPending);
     setCheckedDelivered(!checkedDelivered);
-  } */
+
+    setStatus(checkedPending ? 'Pendentes' : 'Entregues');
+  }
 
   const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
     async function loadDeliveries() {
-      const response = await api.get(`/deliverymen/${id}/deliveries`);
+      const response = await api.get(`/deliverymen/${id}/deliveries`, {
+        params: { q: status },
+      });
 
       setDeliveries(response.data);
     }
 
     loadDeliveries();
-  }, [id]);
+  }, [status, id]);
 
   function handleSignOut() {
     Alert.alert(
@@ -99,7 +106,24 @@ export default function Dashboard() {
 
       <ListHeader>
         <ListHeaderTitle>Entregas</ListHeaderTitle>
-        <Radio />
+        <RadioContainer>
+          <RadioButton>
+            <RadioButtonText
+              checked={checkedPending}
+              onPress={() => handleChecked()}
+            >
+              Pendentes
+            </RadioButtonText>
+          </RadioButton>
+          <RadioButton>
+            <RadioButtonText
+              checked={checkedDelivered}
+              onPress={() => handleChecked()}
+            >
+              Entregues
+            </RadioButtonText>
+          </RadioButton>
+        </RadioContainer>
       </ListHeader>
 
       <List

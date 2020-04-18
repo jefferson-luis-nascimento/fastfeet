@@ -5,7 +5,7 @@ import { Container, Image, Initials } from './styles';
 
 import randomColor from '~/util/randomColor';
 
-export default function Avatar({ url, index, defaultText }) {
+export default function Avatar({ url, index, defaultText, style }) {
   const words = defaultText.split(' ');
 
   const initials = `${words[0].substring(0, 1)}${
@@ -14,11 +14,13 @@ export default function Avatar({ url, index, defaultText }) {
 
   const color = randomColor(index);
   return (
-    <Container>
+    <Container style={style}>
       {url ? (
-        <Image source={{ uri: url }} />
+        <Image source={{ uri: url }} style={style} />
       ) : (
-        <Initials color={color}>{initials}</Initials>
+        <Initials style={style} color={color}>
+          {initials}
+        </Initials>
       )}
     </Container>
   );
@@ -28,8 +30,10 @@ Avatar.propTypes = {
   url: PropTypes.string,
   index: PropTypes.number.isRequired,
   defaultText: PropTypes.string.isRequired,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 Avatar.defaultProps = {
   url: null,
+  style: {},
 };

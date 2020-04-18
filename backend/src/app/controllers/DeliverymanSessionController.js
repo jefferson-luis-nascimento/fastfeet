@@ -23,7 +23,7 @@ class DeliverymanSessionController {
     }
 
     const deliveryman = await Deliveryman.findByPk(id, {
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'createdAt'],
       include: [
         {
           model: File,
@@ -37,13 +37,14 @@ class DeliverymanSessionController {
       return res.status(404).json({ error: 'Deliveryman not found.' });
     }
 
-    const { name, email, avatar } = deliveryman;
+    const { name, email, avatar, createdAt } = deliveryman;
 
     return res.json({
       user: {
         id,
         name,
         email,
+        created_at: createdAt,
         avatar,
       },
       token: jwt.sign({ id }, authConfig.secret, {

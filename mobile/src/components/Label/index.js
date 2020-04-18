@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 
 import { Container, HeaderText, Text } from './styles';
 
-export default function Label({ header, children }) {
+export default function Label({ header, children, style }) {
   return (
-    <Container>
-      {header && <HeaderText>{header}</HeaderText>}
-      <Text>{children}</Text>
+    <Container style={style}>
+      {header && (
+        <HeaderText className="header" style={style}>
+          {header}
+        </HeaderText>
+      )}
+      <Text className="content" style={style}>
+        {children}
+      </Text>
     </Container>
   );
 }
@@ -15,8 +21,10 @@ export default function Label({ header, children }) {
 Label.propTypes = {
   header: PropTypes.string,
   children: PropTypes.string.isRequired,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 Label.defaultProps = {
   header: null,
+  style: {},
 };

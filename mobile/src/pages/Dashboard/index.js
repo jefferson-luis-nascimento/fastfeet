@@ -27,7 +27,7 @@ const exitIcon = {
 };
 
 export default function Dashboard() {
-  const { id, name } = useSelector((state) => state.user.profile);
+  const { id, name, avatar } = useSelector((state) => state.user.profile);
 
   /* const [checkedPending, setCheckedPending] = useState(true);
   const [checkedDelivered, setCheckedDelivered] = useState(false);
@@ -53,7 +53,11 @@ export default function Dashboard() {
     <Container>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <Header>
-        <Avatar index={parseInt(id, 10)} defaultText={name} />
+        <Avatar
+          url={avatar ? avatar.url : null}
+          index={parseInt(id, 10)}
+          defaultText={name}
+        />
         <NameContainer>
           <WelcomeText>Bem vindo de volta,</WelcomeText>
           <NameText>{name}</NameText>

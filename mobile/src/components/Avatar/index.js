@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Initials } from './styles';
+import { Container, Image, Initials } from './styles';
 
 import randomColor from '~/util/randomColor';
 
@@ -16,7 +16,7 @@ export default function Avatar({ url, index, defaultText }) {
   return (
     <Container>
       {url ? (
-        <img src={url} alt={defaultText} />
+        <Image source={{ uri: url }} />
       ) : (
         <Initials color={color}>{initials}</Initials>
       )}

@@ -1,12 +1,21 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { useRoute } from '@react-navigation/native';
 
-import { Container } from './styles';
+import { Container, BackgroundNavigation, Content } from './styles';
 
-export default function ConfirmDelivery() {
+import api from '~/services/api';
+
+export default function ViewProblem() {
+  const route = useRoute();
+
+  const { delivery } = route.params;
+
+  useEffect(() => {}, []);
+
   return (
     <Container>
-      <Text>ConfirmDelivery</Text>
+      <BackgroundNavigation />
+      <Content />
     </Container>
   );
 }

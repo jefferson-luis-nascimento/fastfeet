@@ -16,6 +16,4 @@ if (__DEV__) {
   tron.clear();
 
   console.tron = tron;
-
-  console.tron.log(tron);
 }

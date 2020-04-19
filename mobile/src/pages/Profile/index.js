@@ -23,7 +23,6 @@ export default function Profile() {
   );
 
   const date = useMemo(() => {
-    console.tron.log(created_at);
     return format(parseISO(created_at), 'dd/MM/yyyy', { locale: pt });
   }, [created_at]);
 

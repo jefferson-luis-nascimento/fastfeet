@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StatusBar, Alert } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -30,7 +31,9 @@ const exitIcon = {
   color: '#e74040',
 };
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
+  const isFocused = useIsFocused();
+
   const dispatch = useDispatch();
 
   const { id, name, avatar } = useSelector((state) => state.user.profile);
@@ -57,8 +60,10 @@ export default function Dashboard() {
       setDeliveries(response.data);
     }
 
-    loadDeliveries();
-  }, [status, id]);
+    if (isFocused) {
+      loadDeliveries();
+    }
+  }, [status, id, isFocused]);
 
   function handleSignOut() {
     Alert.alert(
@@ -128,7 +133,9 @@ export default function Dashboard() {
       <List
         data={deliveries}
         keyExtractor={(delivery) => String(delivery.id)}
-        renderItem={({ item: delivery }) => <ListItem delivery={delivery} />}
+        renderItem={({ item: delivery }) => (
+          <ListItem delivery={delivery} navigation={navigation} />
+        )}
       />
     </Container>
   );

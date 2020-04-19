@@ -9,13 +9,12 @@ import { Container, Header, HeaderText, Footer, DetailButton } from './styles';
 
 import Label from '~/components/Label';
 
-export default function ListItem({ delivery }) {
+export default function ListItem({ delivery, navigation }) {
   const date = useMemo(() => {
     return format(parseISO(delivery.created_at), 'dd/MM/yyyy', { locale: pt });
   }, [delivery.created_at]);
 
   const status = useMemo(() => {
-    console.tron.log();
     switch (delivery.status.toLowerCase()) {
       case 'pendente':
         return 0;
@@ -28,7 +27,9 @@ export default function ListItem({ delivery }) {
     }
   }, [delivery.status]);
 
-  function handleViewDetail() {}
+  function handleViewDetail() {
+    navigation.navigate('NewStack', delivery);
+  }
 
   return (
     <Container>

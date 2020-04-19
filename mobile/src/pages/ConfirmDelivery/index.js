@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RNCamera from 'react-native-camera';
 
 import {
   Container,

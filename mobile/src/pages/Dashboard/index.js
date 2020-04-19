@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StatusBar, Alert } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -31,7 +31,8 @@ const exitIcon = {
   color: '#e74040',
 };
 
-export default function Dashboard({ navigation }) {
+export default function Dashboard() {
+  const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const dispatch = useDispatch();
@@ -40,21 +41,20 @@ export default function Dashboard({ navigation }) {
 
   const [checkedPending, setCheckedPending] = useState(true);
   const [checkedDelivered, setCheckedDelivered] = useState(false);
-  const [status, setStatus] = useState('Pendentes');
 
   function handleChecked() {
     setCheckedPending(!checkedPending);
     setCheckedDelivered(!checkedDelivered);
-
-    setStatus(checkedPending ? 'Pendentes' : 'Entregues');
   }
 
   const [deliveries, setDeliveries] = useState([]);
 
   useEffect(() => {
     async function loadDeliveries() {
+      const status = checkedPending ? 'Pendentes' : 'Entregues';
+
       const response = await api.get(`/deliverymen/${id}/deliveries`, {
-        params: { q: status },
+        params: { status },
       });
 
       setDeliveries(response.data);
@@ -63,7 +63,7 @@ export default function Dashboard({ navigation }) {
     if (isFocused) {
       loadDeliveries();
     }
-  }, [status, id, isFocused]);
+  }, [checkedPending, id, isFocused]);
 
   function handleSignOut() {
     Alert.alert(

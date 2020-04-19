@@ -58,7 +58,9 @@ const attributes = {
 
 class StartEndDeliveryController {
   async show(req, res) {
-    const { page = 1, limit = 20 } = req.query;
+    const { page = 1, status } = req.query;
+
+    const limit = 20;
 
     const { deliveryman_id } = req.params;
 
@@ -68,11 +70,29 @@ class StartEndDeliveryController {
       return res.status(404).json({ error: 'Deliveryman not found' });
     }
 
+    let where = {
+      deliveryman_id,
+      canceled_at: null,
+    };
+
+    if (status) {
+      if (status.toLowerCase() === 'pendentes') {
+        where = {
+          ...where,
+          end_date: null,
+        };
+      }
+
+      if (status.toLowerCase() === 'entregues') {
+        where = {
+          ...where,
+          end_date: { [Op.ne]: null },
+        };
+      }
+    }
+
     const deliveries = await Delivery.findAll({
-      where: {
-        deliveryman_id,
-        canceled_at: null,
-      },
+      where,
       limit,
       offset: (page - 1) * limit,
       ...attributes,

@@ -155,7 +155,11 @@ class StartEndDeliveryController {
 
     await delivery.update({ start_date });
 
-    return res.json({ delivery_id, start_date });
+    const newDelivery = await Delivery.findByPk(delivery_id, {
+      ...attributes,
+    });
+
+    return res.json(newDelivery);
   }
 
   async update(req, res) {

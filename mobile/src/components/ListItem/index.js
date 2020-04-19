@@ -73,4 +73,7 @@ ListItem.propTypes = {
       city: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };

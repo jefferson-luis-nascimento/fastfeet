@@ -5,11 +5,15 @@ import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { Container, Header, HeaderText, Footer, DetailButton } from './styles';
 
 import Label from '~/components/Label';
 
-export default function ListItem({ delivery, navigation }) {
+export default function ListItem({ delivery }) {
+  const navigation = useNavigation();
+
   const date = useMemo(() => {
     return format(parseISO(delivery.created_at), 'dd/MM/yyyy', { locale: pt });
   }, [delivery.created_at]);
@@ -28,7 +32,9 @@ export default function ListItem({ delivery, navigation }) {
   }, [delivery.status]);
 
   function handleViewDetail() {
-    navigation.navigate('NewStack', delivery);
+    console.tron.log(delivery);
+
+    navigation.navigate('DeliveryDetail', { delivery });
   }
 
   return (
@@ -72,8 +78,5 @@ ListItem.propTypes = {
     recipient: PropTypes.shape({
       city: PropTypes.string.isRequired,
     }).isRequired,
-  }).isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
   }).isRequired,
 };

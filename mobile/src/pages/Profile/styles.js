@@ -34,4 +34,5 @@ export const Text = styled.Text`
 
 export const ExitButton = styled(Button)`
   background: #e74040;
+  height: 60px;
 `;

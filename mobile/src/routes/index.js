@@ -1,15 +1,13 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import SignIn from '~/pages/SignIn';
 
-import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
 
-import NewStack from '~/routes/detailRoutes';
+import Dashboard from '~/routes/detailRoutes';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -56,15 +54,6 @@ export default function createRouter(isSigned = false) {
           tabBarIcon: ({ color }) => (
             <Icon name="reorder" size={30} color={color} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="NewStack"
-        component={NewStack}
-        options={{
-          tabBarVisible: false,
-          tabBarLabel: '',
-          tabBarButton: () => <TouchableOpacity OnPress={() => {}} />,
         }}
       />
       <Tabs.Screen

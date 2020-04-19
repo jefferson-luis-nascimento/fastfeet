@@ -88,7 +88,9 @@ export default function Dashboard({ navigation }) {
 
   return (
     <Container>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      {isFocused && (
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      )}
       <Header>
         <Avatar
           url={avatar ? avatar.url : null}

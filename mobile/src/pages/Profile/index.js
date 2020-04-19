@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Alert } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
@@ -16,6 +17,7 @@ import {
 import { signOut } from '~/store/modules/auth/actions';
 
 export default function Profile() {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
   const { id, name, email, avatar, created_at } = useSelector(
@@ -49,6 +51,9 @@ export default function Profile() {
 
   return (
     <Container>
+      {isFocused && (
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      )}
       <Image
         url={avatar ? avatar.url : null}
         defaultText={name}

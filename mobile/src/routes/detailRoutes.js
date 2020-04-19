@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import BackButton from '~/components/BackButton';
+
+import Dashboard from '~/pages/Dashboard';
 import DeliveryDetail from '~/pages/DeliveryDetail';
 import AddProblem from '~/pages/AddProblem';
 import ViewProblem from '~/pages/ViewProblem';
@@ -10,34 +11,33 @@ import ConfirmDelivery from '~/pages/ConfirmDelivery';
 
 const Stack = createStackNavigator();
 
-export default function NewStack({ navigation }) {
+export default function DeliveryRotues() {
   return (
     <Stack.Navigator
-      headerBackTitleVisible={false}
-      headerLayoutPreset="center"
-      initialRouteName={DeliveryDetail}
       screenOptions={{
-        headerStyle: {
-          backgroundColor: '#7d40e7',
+        headerBackTitleVisible: false,
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          fontWeight: 'bold',
         },
-        headerTintColor: '#FFF',
+        headerTintColor: '#fff',
+        headerTransparent: true,
       }}
+      initialRouteName="Dashboard"
     >
+      <Stack.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{
+          title: '',
+        }}
+      />
       <Stack.Screen
         name="DeliveryDetail"
         component={DeliveryDetail}
         options={{
           title: 'Detalhes da encomenda',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                console.tron.log(navigation);
-                navigation.navigate('Dashboard');
-              }}
-            >
-              <Icon name="chevron-left" size={30} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerLeft: () => <BackButton />,
         }}
       />
       <Stack.Screen
@@ -45,15 +45,7 @@ export default function NewStack({ navigation }) {
         component={AddProblem}
         options={{
           title: 'Informar problema',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={30} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerLeft: () => <BackButton />,
         }}
       />
       <Stack.Screen
@@ -61,15 +53,7 @@ export default function NewStack({ navigation }) {
         component={ViewProblem}
         options={{
           title: 'Visualizar problemas',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={30} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerLeft: () => <BackButton />,
         }}
       />
       <Stack.Screen
@@ -77,15 +61,7 @@ export default function NewStack({ navigation }) {
         component={ConfirmDelivery}
         options={{
           title: 'Confirmar entrega',
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="chevron-left" size={30} color="#FFF" />
-            </TouchableOpacity>
-          ),
+          headerLeft: () => <BackButton />,
         }}
       />
     </Stack.Navigator>

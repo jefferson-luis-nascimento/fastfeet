@@ -50,7 +50,7 @@ export const Label = styled.Text`
 export const Text = styled.Text`
   color: #444;
   font-weight: bold;
-  margin-bottom: 10;
+  margin-bottom: 10px;
 `;
 
 export const DateContainer = styled.View`

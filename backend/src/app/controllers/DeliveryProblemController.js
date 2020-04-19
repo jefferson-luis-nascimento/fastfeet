@@ -43,7 +43,11 @@ class DeliveryProblemController {
 
     const { delivery_id } = req.params;
 
-    const { id, description, created_at } = await DeliveryProblem.create({
+    const {
+      id,
+      description,
+      createdAt: created_at,
+    } = await DeliveryProblem.create({
       delivery_id,
       ...req.body,
     });

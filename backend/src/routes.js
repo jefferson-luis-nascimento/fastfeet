@@ -15,6 +15,7 @@ import DeliveryController from './app/controllers/DeliveryController';
 import StartEndDeliveryController from './app/controllers/StartEndDeliveryController';
 import DeliveryProblemController from './app/controllers/DeliveryProblemController';
 import DeliverymanSessionController from './app/controllers/DeliverymanSessionController';
+import DeliverymanProblemsController from './app/controllers/DeliverymanProblemsController';
 
 const routes = new Router();
 const uploads = multer(multerConfig);
@@ -50,6 +51,11 @@ routes.get('/problems/:problem_id', DeliveryProblemController.index);
 routes.post(
   '/deliveries/:delivery_id/problems',
   DeliveryProblemController.store
+);
+
+routes.get(
+  '/deliveries/:delivery_id/problems',
+  DeliverymanProblemsController.show
 );
 
 routes.use(adminMiddleware);

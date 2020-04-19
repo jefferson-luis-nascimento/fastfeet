@@ -40,18 +40,17 @@ export const HeaderText = styled.Text`
 export const LabelContainer = styled.View`
   justify-content: center;
   align-items: flex-start;
-  margin-bottom: 10px;
 `;
 
 export const Label = styled.Text`
   color: #ccc;
   font-weight: bold;
-  margin-bottom: 5px;
 `;
 
 export const Text = styled.Text`
   color: #444;
   font-weight: bold;
+  margin-bottom: 10;
 `;
 
 export const DateContainer = styled.View`

@@ -32,8 +32,6 @@ export default function ListItem({ delivery }) {
   }, [delivery.status]);
 
   function handleViewDetail() {
-    console.tron.log(delivery);
-
     navigation.navigate('DeliveryDetail', { delivery });
   }
 

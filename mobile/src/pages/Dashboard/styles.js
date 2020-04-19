@@ -29,7 +29,6 @@ export const NameText = styled.Text`
 export const ExitButton = styled(RectButton)`
   background: #fff;
   align-self: center;
-  padding: 10px;
 `;
 
 export const ListHeader = styled.View`
@@ -57,6 +56,7 @@ export const RadioButtonText = styled.Text`
   margin-right: 10px;
   font-size: 16px;
   color: ${(props) => (props.checked ? '#7d40e7' : '#ddd')};
+  font-weight: ${(props) => (props.checked ? 'bold' : 'normal')};
 `;
 
 export const List = styled.FlatList.attrs({

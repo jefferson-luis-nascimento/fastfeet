@@ -11,7 +11,6 @@ import {
   Label,
   Text,
   ExitButton,
-  ExitButtonText,
 } from './styles';
 
 import { signOut } from '~/store/modules/auth/actions';

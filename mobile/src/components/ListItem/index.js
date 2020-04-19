@@ -5,14 +5,7 @@ import pt from 'date-fns/locale/pt';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
-import {
-  Container,
-  Header,
-  HeaderText,
-  Footer,
-  DetailButton,
-  DetailButtonText,
-} from './styles';
+import { Container, Header, HeaderText, Footer, DetailButton } from './styles';
 
 import Label from '~/components/Label';
 
@@ -64,9 +57,7 @@ export default function ListItem({ delivery }) {
       <Footer>
         <Label header="Data">{date}</Label>
         <Label header="Cidade">{delivery.recipient.city}</Label>
-        <DetailButton onPress={handleViewDetail}>
-          <DetailButtonText>Ver detalhes</DetailButtonText>
-        </DetailButton>
+        <DetailButton onPress={handleViewDetail}>Ver detalhes</DetailButton>
       </Footer>
     </Container>
   );

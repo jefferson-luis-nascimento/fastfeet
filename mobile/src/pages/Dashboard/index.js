@@ -94,9 +94,8 @@ export default function Dashboard() {
           <WelcomeText>Bem vindo de volta,</WelcomeText>
           <NameText>{name}</NameText>
         </NameContainer>
-        <ExitButton>
+        <ExitButton onPress={handleSignOut}>
           <Icon
-            onPress={handleSignOut}
             name={exitIcon.name}
             size={exitIcon.size}
             color={exitIcon.color}
